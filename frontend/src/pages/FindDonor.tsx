@@ -1096,7 +1096,7 @@ export default function FindDonor() {
               onClick={e => e.stopPropagation()}
             >
               <div className="flex justify-between items-center mb-4">
-                <h2 className="text-xl font-bold">Post a Blood Request</h2>
+                <h2 className="text-xl font-bold text-black">Post a Blood Request</h2>
                 <button
                   onClick={() => setShowRequestModal(false)}
                   className="text-gray-500 hover:text-gray-700 text-2xl"
@@ -1113,7 +1113,7 @@ export default function FindDonor() {
                   className="space-y-4"
                 >
                   <div>
-                    <label className="block mb-1 font-medium">Location</label>
+                    <label className="block mb-1 font-medium text-black">Location</label>
                     <input
                       type="text"
                       value={requestLocation}
@@ -1124,7 +1124,7 @@ export default function FindDonor() {
                     />
                   </div>
                   <div>
-                    <label className="block mb-1 font-medium">Blood Type</label>
+                    <label className="block mb-1 font-medium text-black">Blood Type</label>
                     <input
                       type="text"
                       value={requestBloodType}

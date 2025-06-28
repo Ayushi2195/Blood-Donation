@@ -189,7 +189,7 @@ export default function Home() {
               className="bg-white rounded-xl shadow p-6 flex flex-col items-center transition transform hover:-translate-y-2 hover:shadow-2xl"
             >
               {f.icon}
-              <h4 className="mt-4 font-semibold text-lg">{f.title}</h4>
+              <h4 className="mt-4 font-semibold text-lg text-black">{f.title}</h4>
               <p className="text-gray-600 mt-2 text-center">{f.desc}</p>
             </motion.div>
           ))}
