@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 
 const mainLinks = [
@@ -19,6 +19,8 @@ const infoLinks = [
 
 export default function Navbar() {
   const location = useLocation();
+  const [showDropdown, setShowDropdown] = useState(false);
+
   return (
     <nav className="bg-white/70 backdrop-blur-md shadow flex items-center justify-between px-8 py-4 fixed w-full z-50">
       <Link to="/" className="text-2xl font-extrabold text-red-600 tracking-tight">
@@ -68,22 +70,37 @@ export default function Navbar() {
           </div>
         </Link>
         {/* More Dropdown */}
-        <div className="relative group">
-          <button className="font-medium text-gray-700 hover:text-red-600 transition focus:outline-none">
+        <div className="relative">
+          <button
+            className="font-medium text-white hover:text-red-200 transition focus:outline-none"
+            tabIndex={0}
+            onMouseEnter={() => setShowDropdown(true)}
+            onMouseLeave={() => setShowDropdown(false)}
+            onFocus={() => setShowDropdown(true)}
+            onBlur={() => setShowDropdown(false)}
+            aria-haspopup="true"
+            aria-expanded={showDropdown}
+          >
             More
             <svg className="inline w-4 h-4 ml-1" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7" /></svg>
           </button>
-          <div className="absolute right-0 mt-2 w-48 bg-white border rounded shadow-lg opacity-0 group-hover:opacity-100 group-focus:opacity-100 transition-opacity z-10">
-            {infoLinks.map((link) => (
-              <Link
-                key={link.name}
-                to={link.path}
-                className="block px-4 py-2 text-gray-700 hover:bg-red-50 hover:text-red-600"
-              >
-                {link.name}
-              </Link>
-            ))}
-          </div>
+          {showDropdown && (
+            <div
+              className="absolute right-0 mt-2 w-48 bg-white border rounded shadow-lg z-10"
+              onMouseEnter={() => setShowDropdown(true)}
+              onMouseLeave={() => setShowDropdown(false)}
+            >
+              {infoLinks.map((link) => (
+                <Link
+                  key={link.name}
+                  to={link.path}
+                  className="block px-4 py-2 text-gray-700 hover:bg-red-50 hover:text-red-600"
+                >
+                  {link.name}
+                </Link>
+              ))}
+            </div>
+          )}
         </div>
       </div>
     </nav>
