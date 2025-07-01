@@ -53,6 +53,7 @@ export default function Navbar() {
               strokeLinejoin="round"
             />
           </svg>
+          <span className="absolute -top-1 -right-1 w-2.5 h-2.5 bg-red-600 rounded-full border-2 border-white"></span>
         </Link>
         {/* Profile Avatar Icon */}
         <Link to="/profile" className="ml-2">
