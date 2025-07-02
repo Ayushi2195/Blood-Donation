@@ -10,11 +10,32 @@ const mainLinks = [
 ];
 
 const infoLinks = [
-  { name: "About Us", path: "/about" },
-  { name: "Testimonials", path: "/testimonials" },
-  { name: "How It Works", path: "/how-it-works" },
-  { name: "Terms", path: "/terms" },
-  { name: "Privacy", path: "/privacy" },
+  { name: "About Us", path: "/about", icon: (
+      <svg className="inline w-4 h-4 mr-2 text-blue-500" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+    ), description: "Who we are, our mission, and our team.", submenu: [
+      { name: "Our Team", path: "/about#team" },
+      { name: "Our Mission", path: "/about#mission" },
+    ] },
+  { name: "Testimonials", path: "/testimonials", icon: (
+      <svg className="inline w-4 h-4 mr-2 text-green-500" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M7 17a4 4 0 0 1-4-4V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4v6a4 4 0 0 1-4 4H7zm0 0v4m10-4v4"/></svg>
+    ) },
+  { name: "How It Works", path: "/how-it-works", icon: (
+      <svg className="inline w-4 h-4 mr-2 text-purple-500" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M12 8v4l3 3"/></svg>
+    ) },
+  { name: "Terms", path: "/terms", icon: (
+      <svg className="inline w-4 h-4 mr-2 text-yellow-500" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M17 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h10zm0 0v4H7V3"/></svg>
+    ) },
+  { name: "Privacy", path: "/privacy", icon: (
+      <svg className="inline w-4 h-4 mr-2 text-pink-500" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M12 17a5 5 0 0 0 5-5V7a5 5 0 0 0-10 0v5a5 5 0 0 0 5 5z"/></svg>
+    ) },
+  // Divider
+  { divider: true },
+  { name: "Careers", path: "/careers", icon: (
+      <svg className="inline w-4 h-4 mr-2 text-indigo-500" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-8 0v2"/><circle cx="12" cy="7" r="4"/></svg>
+    ) },
+  { name: "Blog", path: "/blog", icon: (
+      <svg className="inline w-4 h-4 mr-2 text-orange-500" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><path d="M7 10h10M7 14h5"/></svg>
+    ) },
 ];
 
 export default function Navbar() {
@@ -91,14 +112,41 @@ export default function Navbar() {
               onMouseEnter={() => setShowDropdown(true)}
               onMouseLeave={() => setShowDropdown(false)}
             >
-              {infoLinks.map((link) => (
-                <Link
-                  key={link.name}
-                  to={link.path}
-                  className="block px-4 py-2 text-gray-700 hover:bg-red-50 hover:text-red-600"
-                >
-                  {link.name}
-                </Link>
+              {infoLinks.map((link, idx) => (
+                link.divider ? (
+                  <hr key={idx} className="my-2 border-t border-gray-200" />
+                ) : link.name === "About Us" ? (
+                  <div key={link.name} className="group relative">
+                    <Link
+                      to={link.path}
+                      className="flex items-center px-4 py-2 text-gray-700 hover:bg-red-50 hover:text-red-600"
+                    >
+                      {link.icon}
+                      <span>{link.name}</span>
+                    </Link>
+                    <span className="block text-xs text-gray-500 px-4 pb-1">{link.description}</span>
+                    <div className="absolute left-full top-0 mt-0 ml-2 w-40 bg-white border rounded shadow-lg z-20 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none group-hover:pointer-events-auto">
+                      {link.submenu && link.submenu.map((sublink) => (
+                        <Link
+                          key={sublink.name}
+                          to={sublink.path}
+                          className="block px-4 py-2 text-gray-700 hover:bg-red-50 hover:text-red-600"
+                        >
+                          {sublink.name}
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
+                ) : (
+                  <Link
+                    key={link.name}
+                    to={link.path}
+                    className="flex items-center px-4 py-2 text-gray-700 hover:bg-red-50 hover:text-red-600"
+                  >
+                    {link.icon}
+                    <span>{link.name}</span>
+                  </Link>
+                )
               ))}
             </div>
           )}
