@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 
 const mainLinks = [
@@ -41,6 +41,23 @@ const infoLinks = [
 export default function Navbar() {
   const location = useLocation();
   const [showDropdown, setShowDropdown] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setShowDropdown(false);
+      }
+    }
+    if (showDropdown) {
+      document.addEventListener("mousedown", handleClickOutside);
+    } else {
+      document.removeEventListener("mousedown", handleClickOutside);
+    }
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [showDropdown]);
 
   return (
     <nav className="bg-white/70 backdrop-blur-md shadow flex items-center justify-between px-8 py-4 fixed w-full z-50">
@@ -92,25 +109,23 @@ export default function Navbar() {
           </div>
         </Link>
         {/* More Dropdown */}
-        <div className="relative">
+        <div className="relative" ref={dropdownRef}
+          onMouseEnter={() => setShowDropdown(true)}
+          onMouseLeave={() => setShowDropdown(false)}
+        >
           <button
             className="font-medium text-white hover:text-red-200 transition focus:outline-none"
             tabIndex={0}
-            onMouseEnter={() => setShowDropdown(true)}
-            onMouseLeave={() => setShowDropdown(false)}
-            onFocus={() => setShowDropdown(true)}
-            onBlur={() => setShowDropdown(false)}
             aria-haspopup="true"
             aria-expanded={showDropdown}
+            onClick={() => setShowDropdown((prev) => !prev)}
           >
             More
             <svg className="inline w-4 h-4 ml-1" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7" /></svg>
           </button>
           {showDropdown && (
             <div
-              className="absolute right-0 mt-2 w-48 bg-white border rounded shadow-lg z-10"
-              onMouseEnter={() => setShowDropdown(true)}
-              onMouseLeave={() => setShowDropdown(false)}
+              className="absolute right-0 w-48 bg-white border rounded shadow-lg z-10"
             >
               {infoLinks.map((link, idx) => (
                 link.divider ? (
@@ -125,17 +140,6 @@ export default function Navbar() {
                       <span>{link.name}</span>
                     </Link>
                     <span className="block text-xs text-gray-500 px-4 pb-1">{link.description}</span>
-                    <div className="absolute left-full top-0 mt-0 ml-2 w-40 bg-white border rounded shadow-lg z-20 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none group-hover:pointer-events-auto">
-                      {link.submenu && link.submenu.map((sublink) => (
-                        <Link
-                          key={sublink.name}
-                          to={sublink.path}
-                          className="block px-4 py-2 text-gray-700 hover:bg-red-50 hover:text-red-600"
-                        >
-                          {sublink.name}
-                        </Link>
-                      ))}
-                    </div>
                   </div>
                 ) : (
                   <Link

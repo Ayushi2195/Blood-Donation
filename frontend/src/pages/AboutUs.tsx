@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 
 const teamMembers = [
   { name: "Neha Mehta", role: "Founder & CEO", bio: "Neha is passionate about saving lives and building communities. She founded LifeDrop to make blood donation easier and more accessible for everyone." },
@@ -7,8 +8,18 @@ const teamMembers = [
 ];
 
 export default function AboutUs() {
+  const [mounted, setMounted] = useState(false);
+  const location = useLocation();
+  useEffect(() => {
+    setMounted(false);
+    const timeout = setTimeout(() => setMounted(true), 10);
+    return () => clearTimeout(timeout);
+  }, [location.pathname]);
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen px-4 py-12 bg-gray-50" style={{ marginLeft: '7.25cm', marginTop: '3.5rem' }}>
+    <div
+      className={`flex flex-col items-center justify-center min-h-screen px-4 py-12 bg-gray-50 transition-all duration-700 ease-out ${mounted ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'}`}
+      style={{ marginLeft: '7.25cm', marginTop: '3.5rem' }}
+    >
       <h1 className="text-4xl font-extrabold mb-4 text-red-700">About Us</h1>
       <p className="max-w-2xl text-center mb-8 text-lg text-gray-700">
         LifeDrop is dedicated to connecting blood donors with those in need. Our mission is to save lives by making blood donation accessible, safe, and efficient for everyone.
