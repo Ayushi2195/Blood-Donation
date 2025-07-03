@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 
 const partners = [
   { name: "Apollo Hospitals", logo: "https://upload.wikimedia.org/wikipedia/commons/2/2e/Apollo_Hospitals_Logo.svg", quote: "LifeDrop is a trusted partner in our mission to save lives." },
@@ -36,17 +37,25 @@ const thankYous = [
 export default function Testimonials() {
   const [mounted, setMounted] = useState(false);
   const [thankYouIdx, setThankYouIdx] = useState(0);
+  const location = useLocation();
   useEffect(() => {
-    setMounted(true);
+    setMounted(false);
+    const timeout = setTimeout(() => setMounted(true), 10);
     const interval = setInterval(() => {
       setThankYouIdx((idx) => (idx + 1) % thankYous.length);
     }, 2500);
-    return () => clearInterval(interval);
-  }, []);
+    return () => {
+      clearTimeout(timeout);
+      clearInterval(interval);
+    };
+  }, [location.pathname]);
 
   return (
-    <div className={`flex flex-col items-center justify-center min-h-screen px-4 py-12 bg-gray-50 transition-all duration-700 ease-out ${mounted ? 'translate-x-0 opacity-100' : 'translate-x-8 opacity-0'}`}>
-      <h1 className="text-4xl font-extrabold mb-8 text-red-700">Community Voices & Recognition</h1>
+    <div className={`flex flex-col items-center justify-center min-h-screen px-4 py-12 bg-gray-50 transition-all duration-700 ease-out ${mounted ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'}`}
+      style={{ marginTop: '3.5rem', marginLeft: '6cm' }}
+    >
+      <h1 className="text-4xl font-extrabold mb-2 text-red-700">Testimonials</h1>
+      <h2 className="text-2xl font-semibold mb-8 text-red-500">Community Voices & Recognition</h2>
       {/* Partner/Organization Endorsements */}
       <section className="w-full max-w-3xl mb-12">
         <h2 className="text-2xl font-bold mb-4 text-blue-700">Our Partners Say</h2>
