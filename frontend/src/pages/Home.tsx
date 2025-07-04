@@ -326,7 +326,7 @@ export default function Home() {
               {howItWorks.map((step, i) => (
                 <div key={i} className="bg-pink-50 rounded-xl shadow p-6 flex flex-col items-center text-center">
                   <span className="text-4xl mb-4">{step.icon}</span>
-                  <span className="font-bold text-lg mb-2">{step.title}</span>
+                  <span className="font-bold text-lg mb-2 text-gray-700">{step.title}</span>
                   <span className="text-gray-600">{step.desc}</span>
               </div>
             ))}
