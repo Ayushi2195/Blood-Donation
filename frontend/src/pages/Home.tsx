@@ -315,7 +315,7 @@ export default function Home() {
         <div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50">
           <div className="bg-white rounded-xl shadow-2xl p-8 max-w-2xl w-full relative animate-fade-in">
             <button
-              className="absolute top-2 right-2 text-gray-400 hover:text-red-500 text-2xl font-bold"
+              className="absolute top-2 right-2 text-gray-400 hover:text-red-500 text-xl font-bold"
               onClick={() => setShowHowItWorks(false)}
               aria-label="Close"
             >
