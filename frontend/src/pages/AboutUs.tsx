@@ -20,7 +20,7 @@ export default function AboutUs() {
       className={`flex flex-col items-center justify-center min-h-screen px-4 py-12 bg-gray-50 transition-all duration-700 ease-out ${mounted ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'}`}
       style={{ marginLeft: '7.25cm', marginTop: '3.5rem' }}
     >
-      <h1 className="text-4xl font-extrabold mb-4 text-red-700">About Us</h1>
+      <h1 className="text-2xl font-extrabold mb-4 text-red-700">About Us</h1>
       <p className="max-w-2xl text-center mb-8 text-lg text-gray-700">
         LifeDrop is dedicated to connecting blood donors with those in need. Our mission is to save lives by making blood donation accessible, safe, and efficient for everyone.
       </p>
