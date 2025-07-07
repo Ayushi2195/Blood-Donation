@@ -12,7 +12,7 @@ export default function Terms() {
       style={{ marginLeft: '7.5cm' }}
     >
       <div className="bg-white rounded-xl shadow p-8 max-w-2xl w-full flex flex-col items-center">
-        <h1 className="text-3xl font-bold mb-4 text-red-700">Terms & Conditions</h1>
+        <h1 className="text-4xl font-extrabold mb-4 text-red-700">Terms & Conditions</h1>
         <p className="max-w-2xl text-center mb-6 text-black">By using LifeDrop, you agree to the following terms and conditions. Please read them carefully before using our platform.</p>
         <ul className="list-disc max-w-xl text-gray-700 space-y-2 mb-6">
           <li>LifeDrop is a platform to connect blood donors and recipients. We do not provide medical advice or emergency services.</li>
