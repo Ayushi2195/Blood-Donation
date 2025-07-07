@@ -116,7 +116,7 @@ export default function Home() {
     >
       <div className="flex flex-col md:flex-row items-center gap-10">
         <div>
-          <h1 className="text-5xl font-extrabold mb-6 text-gray-900 leading-tight drop-shadow-lg">
+          <h1 className="text-3xl font-extrabold mb-6 text-gray-900 leading-tight drop-shadow-lg">
             <span className="text-red-600">LifeDrop</span> <br />
             <span className="text-yellow-500">Save Lives, Spread Smiles</span>
           </h1>
