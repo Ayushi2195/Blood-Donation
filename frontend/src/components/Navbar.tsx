@@ -134,7 +134,7 @@ export default function Navbar() {
                       className="flex items-center px-4 py-2 text-gray-700 hover:bg-red-50 hover:text-red-600"
                     >
                       {link.icon}
-                      <span>{link.name}</span>
+                      <span className="text-sm">{link.name}</span>
                     </Link>
                     <span className="block text-xs text-gray-500 px-4 pb-1">{link.description}</span>
                   </div>
