@@ -22,7 +22,7 @@ export default function Login() {
       <div
         className="w-[600px] h-[600px] bg-white p-8 rounded-2xl shadow-xl flex flex-col items-center justify-center border-4 border-rose-300"
       >
-        <h2 className="text-3xl mb-10 text-center text-gray-800 tracking-tight">Sign in your account</h2>
+        <h2 className="text-2xl font-semibold mb-10 text-center text-red-700 tracking-tight">Sign in your account</h2>
         <form onSubmit={handleSubmit} className="flex flex-col gap-6 items-center w-full">
           <div className="w-full flex flex-col items-center">
             <div className="w-full max-w-xs mx-auto">
