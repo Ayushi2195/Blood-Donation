@@ -131,7 +131,7 @@ export default function Navbar() {
                   <div key={link.name} className="group relative">
                     <Link
                       to={link.path}
-                      className="flex items-center px-4 py-2 text-gray-700 hover:bg-red-50 hover:text-red-600"
+                      className="flex items-center px-4 py-2 text-pink-500 hover:bg-red-50 hover:text-red-600"
                     >
                       {link.icon}
                       <span>{link.name}</span>
