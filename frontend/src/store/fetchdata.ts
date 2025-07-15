@@ -23,28 +23,29 @@ export const getFromBackend = async (link: string) => {
     throw error; // Rethrow to allow handling at the calling site
   }
 };
-export const postToBackend = async (link: string, data: any) => {
+export const postToBackend = async (link: string, data: any, useToken = true) => {
     try {
-      const token = localStorage.getItem('token'); // Ensure token is retrieved
-      if (!token) {
-        throw new Error('No token found in localStorage');
-      }
-  
-      const response = await axios.post(link, data, {
-        headers: {
-          'Authorization': `Bearer ${token}`,
-          'Content-Type': 'application/json'
-        },
-      });
-      return response; // Return the full Axios response object
+        const headers: any = {
+            'Content-Type': 'application/json'
+        };
+        if (useToken) {
+            const token = localStorage.getItem('token');
+            if (!token) {
+                throw new Error('No token found in localStorage');
+            }
+            headers['Authorization'] = `Bearer ${token}`;
+        }
+
+        const response = await axios.post(link, data, { headers });
+        return response;
     } catch (error) {
-      if (axios.isAxiosError(error)) {
-      console.error('Request Error:', error.response ? error.response.data : error.message);
-    } else {
-      console.error('Request Error:', (error as Error).message);
+        if (axios.isAxiosError(error)) {
+            console.error('Request Error:', error.response ? error.response.data : error.message);
+        } else {
+            console.error('Request Error:', (error as Error).message);
+        }
+        throw error;
     }
-    throw error; // Rethrow to allow handling at the calling site
-  }
 };
 
 export const patchToBackend = async (link: string, data: any) => {

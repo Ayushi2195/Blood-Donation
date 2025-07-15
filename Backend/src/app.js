@@ -4,8 +4,10 @@ import cors from 'cors';
 import http from 'http';
 
 import connectDB from './config/db.js'; 
+
 import authRoutes from "./routes/authRoutes.js";
 import { authenticateToken } from "./middleware/authenticateToken.js";
+import contactRoutes from './routes/contactRoutes.js';
 
 dotenv.config();
 console.log("MONGO URI:", process.env.MONGO_URI);
@@ -27,14 +29,11 @@ app.use(cors({
 // Routes
 app.get("/", (req, res) => res.send("API running..."));
 app.use("/api/auth", authRoutes);
-
-app.get("/api/profile", authenticateToken, (req, res) => {
-    res.json({ message: "Protected Route", user: req.user });
-});
+app.use('/api/contact', contactRoutes);
 
 // Start server after DB connects
 connectDB().then(() => {
   app.listen(PORT, () => {
-    console.log(`✅ Server is running on http://localhost:${PORT}`);
+    console.log(`Server is running on http://localhost:${PORT}`);
   });
 });

@@ -1,13 +1,38 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
+import { baseUrl } from "../url.ts";
 
 export default function ContactUs() {
   const [submitted, setSubmitted] = useState(false);
 
-  function handleSubmit(e) {
-    e.preventDefault();
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  e.preventDefault();
+  
+  const form = e.target as HTMLFormElement;
+  const data = {
+    name: (form.elements.namedItem('name') as HTMLInputElement)?.value || '',
+    email: (form.elements.namedItem('email') as HTMLInputElement)?.value || '',
+    message: (form.elements.namedItem('message') as HTMLTextAreaElement)?.value || '',
+  };
+
+  try {
+    const response = await fetch(`${baseUrl}/api/contact`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data),
+    });
+
+    if (!response.ok) {
+      throw new Error('Something went wrong');
+    }
+
     setSubmitted(true);
+    console.log('Message sent successfully');
+  } catch (err) {
+    console.error(err);
+    alert('Failed to send your message.');
   }
+}
 
   return (
     <motion.div
@@ -32,9 +57,27 @@ export default function ContactUs() {
           </div>
         ) : (
           <form onSubmit={handleSubmit}>
-            <input className="w-full mb-3 p-2 border rounded bg-gray-100 text-black" type="text" placeholder="Your Name" required />
-            <input className="w-full mb-3 p-2 border rounded bg-gray-100 text-black" type="email" placeholder="Your Email" required />
-            <textarea className="w-full mb-3 p-2 border rounded bg-gray-100 text-black" placeholder="Your Message" rows={4} required></textarea>
+            <input
+              className="w-full mb-3 p-2 border rounded bg-gray-100 text-black"
+              type="text"
+              name="name"
+              placeholder="Your Name"
+              required
+            />
+            <input
+              className="w-full mb-3 p-2 border rounded bg-gray-100 text-black"
+              type="email"
+              name="email"
+              placeholder="Your Email"
+              required
+            />
+            <textarea
+              className="w-full mb-3 p-2 border rounded bg-gray-100 text-black"
+              name="message"
+              placeholder="Your Message"
+              rows={4}
+              required
+            ></textarea>
             <button className="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 w-full" type="submit">Send</button>
           </form>
         )}
