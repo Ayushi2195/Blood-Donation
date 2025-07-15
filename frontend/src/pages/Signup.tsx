@@ -59,7 +59,7 @@ export default function Signup() {
       transition={{ duration: 1.8, type: "spring", ease: "easeOut" }}
       className="flex flex-col items-center justify-center min-h-screen bg-gray-50 px-2 mt-12"
     >
-      <div className="w-full max-w-4xl bg-white p-10 rounded-lg shadow-lg">
+      <div className="max-w-xl mx-auto bg-white p-10 rounded-lg shadow-lg">
         <h2 className="text-3xl font-bold mb-8 text-center text-red-600">Create an Account</h2>
 
         <form onSubmit={handleSubmit} className="space-y-6">

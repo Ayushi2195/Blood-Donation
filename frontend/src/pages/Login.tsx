@@ -3,6 +3,7 @@ import type { FormEvent } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { baseUrl } from "../url";
 import { postToBackend } from "../store/fetchdata.ts";
+import { motion } from "framer-motion";
 
 export default function Login() {
     const [email, setEmail] = useState("");
@@ -30,7 +31,13 @@ export default function Login() {
     };
 
     return (
-        <div className="flex flex-col items-center justify-center min-h-screen w-screen bg-rose-100">
+        <motion.div
+            initial={{ y: 40, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            exit={{ y: -40, opacity: 0 }}
+            transition={{ duration: 1.8, type: "spring", ease: "easeOut" }}
+            className="flex flex-col items-center justify-center min-h-screen w-screen bg-rose-100"
+        >
             <div className="w-[600px] h-[600px] bg-white p-8 rounded-2xl shadow-xl flex flex-col items-center justify-center border-4 border-rose-300">
                 <h2 className="text-2xl font-semibold mb-10 text-center text-red-700 tracking-tight">Sign in your account</h2>
                 <form onSubmit={handleSubmit} className="flex flex-col gap-6 items-center w-full">
@@ -72,6 +79,6 @@ export default function Login() {
                     </div>
                 </div>
             </div>
-        </div>
+        </motion.div>
     );
 }
