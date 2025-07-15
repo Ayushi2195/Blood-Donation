@@ -9,6 +9,10 @@ export default function BecomeDonor() {
   const [currentRole, setCurrentRole] = useState("");
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
+  const [fontSize, setFontSize] = useState(1); // 1 = base, 1.25 = large, etc.
+  const [highContrast, setHighContrast] = useState(false);
+  const fontSizeClass = fontSize === 1 ? "" : fontSize === 1.25 ? "text-lg" : "text-xl";
+  const contrastClass = highContrast ? "bg-black text-yellow-200" : "";
 
   // Fetch current donor status on page load
   useEffect(() => {
@@ -47,7 +51,8 @@ export default function BecomeDonor() {
 
   return (
     <motion.div
-      className="flex flex-col items-center justify-center min-h-screen bg-gray-50 pt-32"
+      className={`flex flex-col items-center min-h-screen pt-32 px-0 w-screen bg-gray-50 ${contrastClass} ${fontSizeClass}`}
+      style={{ fontSize: `${fontSize}em` }}
       initial={{ opacity: 0, y: 40 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -40 }}
