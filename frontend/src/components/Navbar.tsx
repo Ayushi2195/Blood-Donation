@@ -91,7 +91,7 @@ export default function Navbar() {
           <span className="absolute -top-1 -right-1 w-2.5 h-2.5 bg-red-600 rounded-full border-2 border-white"></span>
         </Link>
         {/* Profile Avatar Icon */}
-        <Link to="/profile" className="ml-2">
+        <Link to="/login" className="ml-2">
           <div className="w-8 h-8 rounded-full bg-white border border-neutral-800 flex items-center justify-center shadow">
             <svg
               className="w-6 h-6 text-black"
