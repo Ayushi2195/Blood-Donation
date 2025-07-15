@@ -8,20 +8,33 @@ export default function Login() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    console.log("Form submitted with:", { email, password });
+
     if (!email || !password) {
+      console.warn("Missing email or password");
       setError("Please enter both email and password.");
       return;
     }
+
     setError("");
-    // TODO: Implement authentication logic
+    console.log(`✅ Login successful for email: ${email}`);
     alert(`Logged in as ${email}`);
+    // TODO: Implement real authentication logic here
+  };
+
+  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    console.log("Email input changed:", e.target.value);
+    setEmail(e.target.value);
+  };
+
+  const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    console.log("Password input changed.");
+    setPassword(e.target.value);
   };
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen w-screen bg-rose-100">
-      <div
-        className="w-[600px] h-[600px] bg-white p-8 rounded-2xl shadow-xl flex flex-col items-center justify-center border-4 border-rose-300"
-      >
+      <div className="w-[600px] h-[600px] bg-white p-8 rounded-2xl shadow-xl flex flex-col items-center justify-center border-4 border-rose-300">
         <h2 className="text-2xl font-semibold mb-10 text-center text-red-700 tracking-tight">Sign in your account</h2>
         <form onSubmit={handleSubmit} className="flex flex-col gap-6 items-center w-full">
           <div className="w-full flex flex-col items-center">
@@ -31,7 +44,7 @@ export default function Login() {
                 className="w-full px-5 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-4 focus:ring-emerald-100 text-base placeholder-gray-400 shadow-sm transition"
                 placeholder="Your Email"
                 value={email}
-                onChange={e => setEmail(e.target.value)}
+                onChange={handleEmailChange}
                 required
               />
             </div>
@@ -43,7 +56,7 @@ export default function Login() {
                 className="w-full px-5 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-4 focus:ring-emerald-100 text-base placeholder-gray-400 shadow-sm transition"
                 placeholder="Password"
                 value={password}
-                onChange={e => setPassword(e.target.value)}
+                onChange={handlePasswordChange}
                 required
               />
             </div>
@@ -68,4 +81,4 @@ export default function Login() {
       </div>
     </div>
   );
-} 
+}
