@@ -27,12 +27,6 @@ const infoLinks = [
     ) },
   // Divider
   { divider: true },
-  { name: "Careers", path: "/careers", icon: (
-      <svg className="inline w-4 h-4 mr-2 text-indigo-500" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-8 0v2"/><circle cx="12" cy="7" r="4"/></svg>
-    ) },
-  { name: "Blog", path: "/blog", icon: (
-      <svg className="inline w-4 h-4 mr-2 text-orange-500" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><path d="M7 10h10M7 14h5"/></svg>
-    ) },
 ];
 
 export default function Navbar() {
