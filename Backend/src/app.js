@@ -6,11 +6,12 @@ import http from 'http';
 import connectDB from './config/db.js'; 
 
 import authRoutes from "./routes/authRoutes.js";
-import { authenticateToken } from "./middleware/authenticateToken.js";
 import contactRoutes from './routes/contactRoutes.js';
+import userRoutes from './routes/userRoutes.js';
+import donorRoutes from './routes/donorRoutes.js';
 
 dotenv.config();
-console.log("MONGO URI:", process.env.MONGO_URI);
+console.log("MONGO URL:", process.env.MONGO_URL);
 
 const app = express();
 const server = http.createServer(app);
@@ -30,6 +31,8 @@ app.use(cors({
 app.get("/", (req, res) => res.send("API running..."));
 app.use("/api/auth", authRoutes);
 app.use('/api/contact', contactRoutes);
+app.use("/api/user", userRoutes);
+app.use("/api/donor", donorRoutes);
 
 // Start server after DB connects
 connectDB().then(() => {
@@ -37,3 +40,4 @@ connectDB().then(() => {
     console.log(`Server is running on http://localhost:${PORT}`);
   });
 });
+
