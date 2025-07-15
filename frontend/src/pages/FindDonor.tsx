@@ -22,272 +22,6 @@ const mockDonors = [
     responseTime: "5 min",
     socialConnections: 3,
   },
-  {
-    id: 2,
-    name: "Priya Patel",
-    bloodType: "A-",
-    location: "Mumbai, India",
-    distance: "5.1 km",
-    rating: 4.9,
-    lastDonation: "2024-02-01",
-    availability: "Available Today",
-    specialQualities: ["Platelet Donor", "CMV Negative"],
-    contact: "+91 91234 56789",
-    verified: true,
-    emergencyReady: true,
-    languages: ["English", "Gujarati"],
-    healthStatus: "Good",
-    donationCount: 8,
-    responseTime: "12 min",
-    socialConnections: 1,
-  },
-  {
-    id: 3,
-    name: "Amit Kumar",
-    bloodType: "B+",
-    location: "Bangalore, India",
-    distance: "1.8 km",
-    rating: 4.7,
-    lastDonation: "2024-01-28",
-    availability: "Available Now",
-    specialQualities: ["Double Red Cell Donor"],
-    contact: "+91 99887 77665",
-    verified: true,
-    emergencyReady: false,
-    languages: ["English", "Kannada"],
-    healthStatus: "Excellent",
-    donationCount: 12,
-    responseTime: "8 min",
-    socialConnections: 2,
-  },
-  {
-    id: 4,
-    name: "Neha Singh",
-    bloodType: "AB+",
-    location: "Chennai, India",
-    distance: "3.7 km",
-    rating: 4.6,
-    lastDonation: "2024-02-05",
-    availability: "Available Tomorrow",
-    specialQualities: ["Plasma Donor"],
-    contact: "+91 98712 34567",
-    verified: true,
-    emergencyReady: true,
-    languages: ["English", "Tamil"],
-    healthStatus: "Good",
-    donationCount: 6,
-    responseTime: "15 min",
-    socialConnections: 0,
-  },
-  {
-    id: 5,
-    name: "Vikram Mehta",
-    bloodType: "O-",
-    location: "Pune, India",
-    distance: "4.2 km",
-    rating: 4.9,
-    lastDonation: "2024-01-20",
-    availability: "Available Now",
-    specialQualities: ["Universal Donor", "Rare Blood Type"],
-    contact: "+91 91234 56789",
-    verified: true,
-    emergencyReady: true,
-    languages: ["English", "Marathi"],
-    healthStatus: "Excellent",
-    donationCount: 22,
-    responseTime: "3 min",
-    socialConnections: 5,
-  },
-  {
-    id: 6,
-    name: "Suman Reddy",
-    bloodType: "A+",
-    location: "Hyderabad, India",
-    distance: "6.8 km",
-    rating: 4.5,
-    lastDonation: "2024-01-10",
-    availability: "Available Now",
-    specialQualities: ["Platelet Donor"],
-    contact: "+91 98765 12345",
-    verified: true,
-    emergencyReady: true,
-    languages: ["English", "Telugu"],
-    healthStatus: "Good",
-    donationCount: 9,
-    responseTime: "10 min",
-    socialConnections: 2,
-  },
-  {
-    id: 7,
-    name: "Rajesh Kumar",
-    bloodType: "B-",
-    location: "Kolkata, India",
-    distance: "2.1 km",
-    rating: 4.8,
-    lastDonation: "2024-02-08",
-    availability: "Available Today",
-    specialQualities: ["Rare Antigen Negative"],
-    contact: "+91 91234 87654",
-    verified: true,
-    emergencyReady: false,
-    languages: ["English", "Bengali"],
-    healthStatus: "Excellent",
-    donationCount: 18,
-    responseTime: "7 min",
-    socialConnections: 4,
-  },
-  {
-    id: 8,
-    name: "Anjali Desai",
-    bloodType: "AB-",
-    location: "Ahmedabad, India",
-    distance: "4.5 km",
-    rating: 4.7,
-    lastDonation: "2024-01-25",
-    availability: "Available Tomorrow",
-    specialQualities: ["Plasma Donor", "CMV Negative"],
-    contact: "+91 99887 11223",
-    verified: true,
-    emergencyReady: true,
-    languages: ["English", "Gujarati"],
-    healthStatus: "Good",
-    donationCount: 11,
-    responseTime: "14 min",
-    socialConnections: 1,
-  },
-  {
-    id: 9,
-    name: "Karthik Iyer",
-    bloodType: "O+",
-    location: "Coimbatore, India",
-    distance: "3.2 km",
-    rating: 4.9,
-    lastDonation: "2024-02-03",
-    availability: "Available Now",
-    specialQualities: ["Universal Donor", "Double Red Cell Donor"],
-    contact: "+91 98712 99887",
-    verified: true,
-    emergencyReady: true,
-    languages: ["English", "Tamil"],
-    healthStatus: "Excellent",
-    donationCount: 25,
-    responseTime: "4 min",
-    socialConnections: 6,
-  },
-  {
-    id: 10,
-    name: "Meera Nair",
-    bloodType: "A-",
-    location: "Kochi, India",
-    distance: "5.7 km",
-    rating: 4.6,
-    lastDonation: "2024-01-18",
-    availability: "Available Today",
-    specialQualities: ["Platelet Donor"],
-    contact: "+91 91234 55443",
-    verified: true,
-    emergencyReady: false,
-    languages: ["English", "Malayalam"],
-    healthStatus: "Good",
-    donationCount: 7,
-    responseTime: "11 min",
-    socialConnections: 2,
-  },
-  {
-    id: 11,
-    name: "Arjun Singh",
-    bloodType: "B+",
-    location: "Jaipur, India",
-    distance: "1.9 km",
-    rating: 4.8,
-    lastDonation: "2024-02-06",
-    availability: "Available Now",
-    specialQualities: ["Rare Antigen Negative"],
-    contact: "+91 99887 33445",
-    verified: true,
-    emergencyReady: true,
-    languages: ["English", "Hindi"],
-    healthStatus: "Excellent",
-    donationCount: 16,
-    responseTime: "6 min",
-    socialConnections: 3,
-  },
-  {
-    id: 12,
-    name: "Pooja Sharma",
-    bloodType: "O-",
-    location: "Lucknow, India",
-    distance: "4.8 km",
-    rating: 4.7,
-    lastDonation: "2024-01-30",
-    availability: "Available Tomorrow",
-    specialQualities: ["Universal Donor", "Rare Blood Type"],
-    contact: "+91 98712 66778",
-    verified: true,
-    emergencyReady: true,
-    languages: ["English", "Hindi"],
-    healthStatus: "Good",
-    donationCount: 13,
-    responseTime: "13 min",
-    socialConnections: 1,
-  },
-  {
-    id: 13,
-    name: "Ravi Teja",
-    bloodType: "AB+",
-    location: "Vijayawada, India",
-    distance: "2.7 km",
-    rating: 4.5,
-    lastDonation: "2024-02-01",
-    availability: "Available Now",
-    specialQualities: ["Plasma Donor"],
-    contact: "+91 91234 77889",
-    verified: true,
-    emergencyReady: false,
-    languages: ["English", "Telugu"],
-    healthStatus: "Good",
-    donationCount: 5,
-    responseTime: "9 min",
-    socialConnections: 0,
-  },
-  {
-    id: 14,
-    name: "Nisha Patel",
-    bloodType: "A+",
-    location: "Surat, India",
-    distance: "3.9 km",
-    rating: 4.9,
-    lastDonation: "2024-01-22",
-    availability: "Available Today",
-    specialQualities: ["Platelet Donor", "CMV Negative"],
-    contact: "+91 99887 88990",
-    verified: true,
-    emergencyReady: true,
-    languages: ["English", "Gujarati"],
-    healthStatus: "Excellent",
-    donationCount: 19,
-    responseTime: "5 min",
-    socialConnections: 4,
-  },
-  {
-    id: 15,
-    name: "Deepak Verma",
-    bloodType: "B-",
-    location: "Indore, India",
-    distance: "2.4 km",
-    rating: 4.6,
-    lastDonation: "2024-02-07",
-    availability: "Available Now",
-    specialQualities: ["Rare Antigen Negative"],
-    contact: "+91 98712 00112",
-    verified: true,
-    emergencyReady: true,
-    languages: ["English", "Hindi"],
-    healthStatus: "Good",
-    donationCount: 10,
-    responseTime: "8 min",
-    socialConnections: 2,
-  },
 ];
 
 const bloodTypes = ["A+", "A-", "B+", "B-", "O+", "O-", "AB+", "AB-"];
@@ -319,16 +53,8 @@ export default function FindDonor() {
   const [selectedRequirements, setSelectedRequirements] = useState<string[]>([]);
   const [viewMode, setViewMode] = useState<"list" | "grid">("list");
   const [showFilters, setShowFilters] = useState(false);
-  const [showAIInsights, setShowAIInsights] = useState(false);
   const [selectedDonor, setSelectedDonor] = useState<any>(null);
   const [showDonorDetails, setShowDonorDetails] = useState(false);
-  const [emergencyMode, setEmergencyMode] = useState(false);
-  const [analyticsData, setAnalyticsData] = useState({
-    totalDonors: 2500,
-    availableNow: 156,
-    averageResponseTime: "8.5 min",
-    successRate: "94.2%",
-  });
   const [showScheduleModal, setShowScheduleModal] = useState(false);
   const [scheduleDonor, setScheduleDonor] = useState<any>(null);
   const [scheduleDate, setScheduleDate] = useState("");
@@ -337,37 +63,6 @@ export default function FindDonor() {
   const [requestLocation, setRequestLocation] = useState("");
   const [requestBloodType, setRequestBloodType] = useState("");
   const [requestSubmitted, setRequestSubmitted] = useState(false);
-
-  // AI-Powered Smart Matching
-  const getAIMatchScore = (donor: any) => {
-    let score = 0;
-    
-    // Blood type compatibility
-    if (selectedBloodType && donor.bloodType === selectedBloodType) score += 30;
-    
-    // Distance factor
-    const distance = parseFloat(donor.distance);
-    if (distance <= 2) score += 25;
-    else if (distance <= 5) score += 20;
-    else if (distance <= 10) score += 15;
-    
-    // Availability
-    if (donor.availability === "Available Now") score += 20;
-    else if (donor.availability === "Available Today") score += 15;
-    
-    // Rating
-    score += donor.rating * 2;
-    
-    // Emergency readiness
-    if (donor.emergencyReady) score += 10;
-    
-    // Response time
-    const responseTime = parseInt(donor.responseTime);
-    if (responseTime <= 5) score += 10;
-    else if (responseTime <= 10) score += 5;
-    
-    return score;
-  };
 
   // Filter donors based on search criteria
   const filteredDonors = mockDonors
@@ -386,16 +81,7 @@ export default function FindDonor() {
       if (parseFloat(donor.distance) > maxDistance) return false;
       return true;
     })
-    .sort((a, b) => getAIMatchScore(b) - getAIMatchScore(a));
-
-  // Emergency Mode Toggle
-  const toggleEmergencyMode = () => {
-    setEmergencyMode(!emergencyMode);
-    if (!emergencyMode) {
-      setSelectedUrgency("Emergency");
-      setMaxDistance(5);
-    }
-  };
+    // No AI match score sorting
 
   return (
     <motion.div
@@ -403,18 +89,10 @@ export default function FindDonor() {
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -40 }}
       transition={{ duration: 0.6 }}
-      className={`min-h-screen pt-32 px-4 ${emergencyMode ? 'bg-gradient-to-br from-red-50 to-pink-50' : 'bg-gradient-to-br from-blue-50 to-indigo-50'}`}
+      className={`min-h-screen pt-32 px-4 bg-gradient-to-br from-blue-50 to-indigo-50`}
     >
       {/* Emergency Mode Banner */}
-      {emergencyMode && (
-        <motion.div
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="bg-red-600 text-white text-center py-3 mb-6 rounded-xl font-bold text-lg shadow-lg animate-pulse"
-        >
-          🚨 EMERGENCY MODE ACTIVATED - Prioritizing urgent blood requests 🚨
-        </motion.div>
-      )}
+      
 
       <div className="max-w-7xl mx-auto">
         {/* Header Section */}
@@ -423,21 +101,7 @@ export default function FindDonor() {
             Find Blood Donors
             <span className="text-red-600 ml-2">Near You</span>
           </h1>
-          <p className="text-lg text-gray-600 mb-6">
-            AI-powered matching system to connect you with verified donors instantly
-          </p>
-          
-          {/* Quick Stats */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-            {Object.entries(analyticsData).map(([key, value]) => (
-              <div key={key} className="bg-white rounded-lg p-4 shadow-md">
-                <div className="text-2xl font-bold text-red-600">{value}</div>
-                <div className="text-sm text-gray-600 capitalize">
-                  {key.replace(/([A-Z])/g, ' $1').trim()}
-                </div>
-              </div>
-            ))}
-          </div>
+          {/* No AI-powered matching or quick stats */}
         </div>
 
         {/* Search and Filter Section */}
@@ -459,16 +123,7 @@ export default function FindDonor() {
             >
               {showFilters ? 'Hide' : 'Show'} Filters
             </button>
-            <button
-              onClick={toggleEmergencyMode}
-              className={`px-6 py-3 rounded-lg font-semibold transition ${
-                emergencyMode 
-                  ? 'bg-red-600 text-white hover:bg-red-700' 
-                  : 'bg-yellow-400 text-gray-900 hover:bg-yellow-500'
-              }`}
-            >
-              {emergencyMode ? '🚨 Emergency Mode' : '🚨 Emergency'}
-            </button>
+            
           </div>
 
           {/* Advanced Filters */}
@@ -480,7 +135,7 @@ export default function FindDonor() {
                 exit={{ opacity: 0, height: 0 }}
                 className="border-t pt-6"
               >
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                <div className="grid grid-cols-1 gap-4">
                   {/* Blood Type Filter */}
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">Blood Type</label>
@@ -494,51 +149,6 @@ export default function FindDonor() {
                         <option key={type} value={type}>{type}</option>
                       ))}
                     </select>
-                  </div>
-
-                  {/* Urgency Level */}
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Urgency</label>
-                    <select
-                      value={selectedUrgency}
-                      onChange={(e) => setSelectedUrgency(e.target.value)}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-300"
-                    >
-                      <option value="">Any Urgency</option>
-                      {urgencyLevels.map(level => (
-                        <option key={level} value={level}>{level}</option>
-                      ))}
-                    </select>
-                  </div>
-
-                  {/* Hospital */}
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Near Hospital</label>
-                    <select
-                      value={selectedHospital}
-                      onChange={(e) => setSelectedHospital(e.target.value)}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-300"
-                    >
-                      <option value="">Any Hospital</option>
-                      {hospitals.map(hospital => (
-                        <option key={hospital} value={hospital}>{hospital}</option>
-                      ))}
-                    </select>
-                  </div>
-
-                  {/* Distance */}
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Max Distance: {maxDistance} km
-                    </label>
-                    <input
-                      type="range"
-                      min="1"
-                      max="50"
-                      value={maxDistance}
-                      onChange={(e) => setMaxDistance(parseInt(e.target.value))}
-                      className="w-full"
-                    />
                   </div>
                 </div>
 
@@ -573,7 +183,7 @@ export default function FindDonor() {
         </div>
 
         {/* View Mode Toggle */}
-        <div className="flex justify-between items-center mb-6">
+        <div className="flex justify-end items-center mb-6">
           <div className="flex gap-2">
             <button
               onClick={() => setViewMode("list")}
@@ -593,44 +203,10 @@ export default function FindDonor() {
             </button>
           </div>
 
-          <button
-            onClick={() => setShowAIInsights(!showAIInsights)}
-            className="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition"
-          >
-            🤖 AI Insights
-          </button>
+          
         </div>
 
-        {/* AI Insights Panel */}
-        <AnimatePresence>
-          {showAIInsights && (
-            <motion.div
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              className="bg-gradient-to-r from-purple-50 to-pink-50 rounded-xl p-6 mb-6 border border-purple-200"
-            >
-              <h3 className="text-xl font-bold text-purple-800 mb-4">🤖 AI-Powered Insights</h3>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div className="bg-white rounded-lg p-4 shadow">
-                  <div className="text-2xl font-bold text-purple-600">94.2%</div>
-                  <div className="text-sm text-gray-600">Match Success Rate</div>
-                </div>
-                <div className="bg-white rounded-lg p-4 shadow">
-                  <div className="text-2xl font-bold text-purple-600">8.5 min</div>
-                  <div className="text-sm text-gray-600">Average Response Time</div>
-                </div>
-                <div className="bg-white rounded-lg p-4 shadow">
-                  <div className="text-2xl font-bold text-purple-600">156</div>
-                  <div className="text-sm text-gray-600">Donors Available Now</div>
-                </div>
-              </div>
-              <div className="mt-4 text-sm text-purple-700">
-                💡 <strong>AI Recommendation:</strong> Based on your search criteria, we recommend contacting donors within 3km for fastest response times.
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
+        
 
         {/* Results Section */}
         <div className="mb-8">
@@ -638,9 +214,7 @@ export default function FindDonor() {
             <h2 className="text-2xl font-bold text-gray-900">
               Found {filteredDonors.length} Donors
             </h2>
-            <div className="text-sm text-gray-600">
-              Sorted by AI match score
-            </div>
+            {/* No AI match score sorting */}
           </div>
 
           {/* No donors found message and suggestions */}
@@ -777,7 +351,7 @@ export default function FindDonor() {
                         setScheduleConfirmed(false);
                       }}
                     >
-                      Schedule Donation
+                      Contact Donor
                     </button>
                   </div>
                 </motion.div>
@@ -856,16 +430,13 @@ export default function FindDonor() {
                           setScheduleConfirmed(false);
                         }}
                       >
-                        Schedule Donation
+                        Contact Donor
                       </button>
                     </div>
                   </div>
 
                   <div className="mt-4 bg-green-50 rounded-lg p-3">
-                    <div className="flex items-center justify-between">
-                      <span className="font-semibold text-green-800">{donor.availability}</span>
-                      <span className="text-sm text-gray-600">AI Match Score: {getAIMatchScore(donor)}%</span>
-                    </div>
+                    <span className="font-semibold text-green-800">{donor.availability}</span>
                   </div>
                 </motion.div>
               ))}
@@ -1003,7 +574,7 @@ export default function FindDonor() {
               onClick={(e) => e.stopPropagation()}
             >
               <div className="flex justify-between items-center mb-4">
-                <h2 className="text-xl font-bold text-black">Schedule Donation</h2>
+                <h2 className="text-xl font-bold text-black">Contact Donor</h2>
                 <button
                   onClick={() => setShowScheduleModal(false)}
                   className="text-gray-500 hover:text-gray-700 text-2xl"
@@ -1020,7 +591,7 @@ export default function FindDonor() {
                   className="space-y-4"
                 >
                   <div>
-                    <label className="block mb-1 font-medium text-black">Preferred Date & Time</label>
+                    <label className="block mb-1 font-medium text-black">Preferred Date & Time for Schedule</label>
                     <input
                       type="datetime-local"
                       value={scheduleDate}
