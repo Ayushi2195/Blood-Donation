@@ -1,0 +1,11 @@
+Backend/.env
+
+# Node modules
+node_modules/
+Backend/node_modules/
+
+# General
+.env
+dist/
+build/
+*.log
