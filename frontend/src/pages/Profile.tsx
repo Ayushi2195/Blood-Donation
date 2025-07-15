@@ -9,6 +9,18 @@ import { baseUrl } from "../url";
 export default function Profile() {
   const [user, setUser] = useState<any>(null);
   const [loading, setLoading] = useState(true);
+  const [showQualitiesModal, setShowQualitiesModal] = useState(false);
+  const [selectedQualities, setSelectedQualities] = useState<string[]>([]);
+
+  const specialQualitiesList = [
+    "Available Today",
+    "First-Time Donor",
+    "Experienced Donor",
+    "Can Donate Platelets",
+    "Can Donate Plasma",
+    "No Recent Illness",
+    "Willing to Travel",
+  ];
 
   useEffect(() => {
     async function fetchProfile() {
@@ -23,6 +35,12 @@ export default function Profile() {
     }
     fetchProfile();
   }, []);
+
+  useEffect(() => {
+    if (user && user.specialQualities) {
+      setSelectedQualities(user.specialQualities);
+    }
+  }, [user]);
 
   if (loading) {
     return (
@@ -93,9 +111,63 @@ export default function Profile() {
 
         {/* Buttons */}
         <div className="flex flex-col md:flex-row gap-4 mb-8 justify-center">
-          <button className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 font-semibold">Edit Profile</button>
+          <button
+            className="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 font-semibold"
+          >
+            Edit Profile
+          </button>
+          <button
+            className={`text-white px-4 py-2 rounded font-semibold ${showQualitiesModal ? 'bg-emerald-700' : 'bg-emerald-500 hover:bg-emerald-600'}`}
+            onClick={() => setShowQualitiesModal(true)}
+          >
+            Add Special Qualities
+          </button>
           <button className="bg-gray-300 text-gray-800 px-4 py-2 rounded hover:bg-gray-400 font-semibold">Logout</button>
         </div>
+        {/* Special Qualities Modal */}
+        {showQualitiesModal && (
+          <div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50">
+            <div className="bg-white rounded-xl shadow-lg p-8 max-w-md w-full relative">
+              <button
+                className="absolute top-2 right-2 text-gray-500 hover:text-gray-700 text-2xl"
+                onClick={() => setShowQualitiesModal(false)}
+              >
+                ×
+              </button>
+              <h3 className="text-xl font-bold mb-4 text-purple-700">Select Special Qualities</h3>
+              <div className="flex flex-wrap gap-2 mb-6">
+                {specialQualitiesList.map((quality) => (
+                  <button
+                    key={quality}
+                    className={`px-3 py-1 rounded-full text-sm font-medium border transition ${
+                      selectedQualities.includes(quality)
+                        ? "bg-purple-600 text-white border-purple-600"
+                        : "bg-gray-100 text-gray-700 border-gray-300 hover:bg-gray-200"
+                    }`}
+                    onClick={() => {
+                      setSelectedQualities((prev) =>
+                        prev.includes(quality)
+                          ? prev.filter((q) => q !== quality)
+                          : [...prev, quality]
+                      );
+                    }}
+                  >
+                    {quality}
+                  </button>
+                ))}
+              </div>
+              <button
+                className="w-full bg-purple-600 text-white py-2 rounded font-semibold hover:bg-purple-700"
+                onClick={() => {
+                  setUser((u: any) => ({ ...u, specialQualities: selectedQualities }));
+                  setShowQualitiesModal(false);
+                }}
+              >
+                Save
+              </button>
+            </div>
+          </div>
+        )}
 
         {/* Legal */}
         <div className="w-full text-xs text-gray-500 text-center border-t pt-4">

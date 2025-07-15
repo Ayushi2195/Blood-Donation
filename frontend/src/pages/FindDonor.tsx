@@ -27,12 +27,13 @@ const mockDonors = [
 const bloodTypes = ["A+", "A-", "B+", "B-", "O+", "O-", "AB+", "AB-"];
 const urgencyLevels = ["Emergency", "Urgent", "Scheduled", "Planned"];
 const specialRequirements = [
-  "Universal Donor",
-  "Rare Antigen Negative",
-  "CMV Negative",
-  "Platelet Donor",
-  "Plasma Donor",
-  "Double Red Cell Donor",
+  "Available Today",
+  "First-Time Donor",
+  "Experienced Donor",
+  "Can Donate Platelets",
+  "Can Donate Plasma",
+  "No Recent Illness",
+  "Willing to Travel",
 ];
 
 const hospitals = [
@@ -63,6 +64,7 @@ export default function FindDonor() {
   const [requestLocation, setRequestLocation] = useState("");
   const [requestBloodType, setRequestBloodType] = useState("");
   const [requestSubmitted, setRequestSubmitted] = useState(false);
+  const [selectedLocation, setSelectedLocation] = useState("");
 
   // Filter donors based on search criteria
   const filteredDonors = mockDonors
@@ -76,9 +78,8 @@ export default function FindDonor() {
         )
       ) return false;
       if (selectedBloodType && donor.bloodType !== selectedBloodType) return false;
-      if (selectedUrgency === "Emergency" && !donor.emergencyReady) return false;
+      if (selectedLocation && !donor.location.toLowerCase().includes(selectedLocation.toLowerCase())) return false;
       if (selectedRequirements.length > 0 && !selectedRequirements.some(req => donor.specialQualities.includes(req))) return false;
-      if (parseFloat(donor.distance) > maxDistance) return false;
       return true;
     })
     // No AI match score sorting
@@ -135,7 +136,7 @@ export default function FindDonor() {
                 exit={{ opacity: 0, height: 0 }}
                 className="border-t pt-6"
               >
-                <div className="grid grid-cols-1 gap-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   {/* Blood Type Filter */}
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">Blood Type</label>
@@ -149,6 +150,17 @@ export default function FindDonor() {
                         <option key={type} value={type}>{type}</option>
                       ))}
                     </select>
+                  </div>
+                  {/* Location Filter */}
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">Location</label>
+                    <input
+                      type="text"
+                      value={selectedLocation}
+                      onChange={(e) => setSelectedLocation(e.target.value)}
+                      placeholder="Enter city, area, or hospital"
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-300"
+                    />
                   </div>
                 </div>
 
