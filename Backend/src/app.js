@@ -9,6 +9,7 @@ import authRoutes from "./routes/authRoutes.js";
 import contactRoutes from './routes/contactRoutes.js';
 import userRoutes from './routes/userRoutes.js';
 import donorRoutes from './routes/donorRoutes.js';
+import donorPreferencesRoutes from './routes/donorPreferencesRoutes.js';
 
 dotenv.config();
 console.log("MONGO URL:", process.env.MONGO_URL);
@@ -33,6 +34,7 @@ app.use("/api/auth", authRoutes);
 app.use('/api/contact', contactRoutes);
 app.use("/api/user", userRoutes);
 app.use("/api/donor", donorRoutes);
+app.use("/api/donor", donorPreferencesRoutes);
 
 // Start server after DB connects
 connectDB().then(() => {
