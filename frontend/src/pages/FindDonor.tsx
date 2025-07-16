@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { getFromBackend } from "../store/fetchdata";
@@ -72,7 +72,7 @@ export default function FindDonor() {
           lastDonation: d.lastDonation ?? "N/A",
           responseTime: d.responseTime ?? "N/A",
           availability: d.isDonorAvailable ? "Available" : "Unavailable",
-          specialQualities: d.preferences ?? [], // <-- ✅ DonorCard expects this field
+          specialQualities: d.preferences ?? [], 
           verified: true,       // placeholder
           emergencyReady: false, // placeholder
           rating: 4.7,           // placeholder

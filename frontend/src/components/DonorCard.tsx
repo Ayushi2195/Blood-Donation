@@ -24,25 +24,28 @@ type Donor = {
 type DonorCardProps = {
   donor: Donor;
   viewMode: "list" | "grid";
-  onViewDetails: (donor: Donor) => void;
 };
 
-const DonorCard: React.FC<DonorCardProps> = ({ donor, viewMode, onViewDetails }) => {
+const DonorCard: React.FC<DonorCardProps> = ({ donor, viewMode}) => {
   const specialQualities = donor.specialQualities ?? [];
 
   const handleContact = async (donorId: string) => {
-    try {
-      await postToBackend(`${baseUrl}/api/notifications/request`, { donorId });
-      alert("Request sent to donor successfully!");
-    } catch (error) {
-      console.error("Failed to send patient request:", error);
-      alert("Failed to send request. Please try again.");
-    }
+      try {
+          const response = await postToBackend(`${baseUrl}/api/notifications/request`, { donorId });
+          if (response.status === 201) {
+              alert("Request sent to donor successfully!");
+          } else {
+              alert("Unexpected response. Please try again.");
+          }
+      } catch (error) {
+          console.error("Failed to send patient request:", error);
+          alert("Failed to send request. Please try again.");
+      }
   };
 
   if (viewMode === "grid") {
     return (
-      <div className="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition cursor-pointer" onClick={() => onViewDetails(donor)}>
+      <div className="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition cursor-pointer">
         <div className="flex items-center justify-between mb-4">
           <h3 className="text-xl font-bold text-gray-900">{donor.name}</h3>
           <div className="flex items-center gap-2">
@@ -95,7 +98,7 @@ const DonorCard: React.FC<DonorCardProps> = ({ donor, viewMode, onViewDetails })
   }
 
   return (
-    <div className="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition cursor-pointer" onClick={() => onViewDetails(donor)}>
+    <div className="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition cursor-pointer">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-4">
           <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center">
