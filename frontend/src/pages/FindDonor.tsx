@@ -1,4 +1,5 @@
-import { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback } from "react";
+import { useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { getFromBackend } from "../store/fetchdata";
 import { baseUrl } from "../url";
@@ -38,6 +39,14 @@ export default function FindDonor() {
   const [donors, setDonors] = useState<Donor[]>([]);
   const [viewMode, setViewMode] = useState<"list" | "grid">("list");
   const [showFilters, setShowFilters] = useState(false);
+  const [showLoginModal, setShowLoginModal] = useState(false);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!localStorage.getItem("token")) {
+      setShowLoginModal(true);
+    }
+  }, []);
 
   const fetchDonors = useCallback(async () => {
     try {
@@ -85,6 +94,19 @@ export default function FindDonor() {
 
   return (
     <motion.div initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -40 }} transition={{ duration: 0.6 }} className="min-h-screen pt-32 px-4 bg-gradient-to-br from-blue-50 to-indigo-50 w-screen">
+      {showLoginModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50">
+          <div className="bg-white rounded-xl shadow-lg p-8 max-w-sm w-full flex flex-col items-center">
+            <h2 className="text-xl font-bold mb-4 text-red-700 text-center">Please login to continue</h2>
+            <button
+              className="bg-red-600 text-white px-6 py-2 rounded-lg font-semibold hover:bg-red-700 transition"
+              onClick={() => navigate("/login")}
+            >
+              Login
+            </button>
+          </div>
+        </div>
+      )}
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-8">
           <h1 className="text-4xl font-bold mb-4 text-gray-900">
@@ -94,11 +116,11 @@ export default function FindDonor() {
 
         <div className="bg-white rounded-xl shadow-lg p-6 mb-8">
           <div className="flex gap-4 mb-6">
-            <input
-              type="text"
+              <input
+                type="text"
               placeholder="Search by name, location, or preferences..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
               className="flex-1 px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-red-300 bg-gray-100 text-black"
             />
             <button onClick={() => setShowFilters(!showFilters)} className="px-6 py-3 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition">

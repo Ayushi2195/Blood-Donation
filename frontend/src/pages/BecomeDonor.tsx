@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { patchToBackend, getFromBackend } from "../store/fetchdata";
 import { baseUrl } from "../url";
 import { motion } from "framer-motion";
@@ -11,6 +12,8 @@ export default function BecomeDonor() {
   const [message, setMessage] = useState("");
   const [fontSize, setFontSize] = useState(1); // 1 = base, 1.25 = large, etc.
   const [highContrast, setHighContrast] = useState(false);
+  const [showLoginModal, setShowLoginModal] = useState(false);
+  const navigate = useNavigate();
   const fontSizeClass = fontSize === 1 ? "" : fontSize === 1.25 ? "text-lg" : "text-xl";
   const contrastClass = highContrast ? "bg-black text-yellow-200" : "";
 
@@ -28,6 +31,12 @@ export default function BecomeDonor() {
       }
     };
     fetchDonorStatus();
+  }, []);
+
+  useEffect(() => {
+    if (!localStorage.getItem("token")) {
+      setShowLoginModal(true);
+    }
   }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -58,6 +67,19 @@ export default function BecomeDonor() {
       exit={{ opacity: 0, y: -40 }}
       transition={{ duration: 0.5 }}
     >
+      {showLoginModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50">
+          <div className="bg-white rounded-xl shadow-lg p-8 max-w-sm w-full flex flex-col items-center">
+            <h2 className="text-xl font-bold mb-4 text-red-700 text-center">Please login to continue</h2>
+            <button
+              className="bg-red-600 text-white px-6 py-2 rounded-lg font-semibold hover:bg-red-700 transition"
+              onClick={() => navigate("/login")}
+            >
+              Login
+            </button>
+          </div>
+        </div>
+      )}
       {/* Introduction & Benefits */}
       <div className="max-w-3xl w-full mb-10 text-center">
         <h1 className="text-4xl font-bold mb-4 text-red-600">Become a Donor</h1>
@@ -159,4 +181,3 @@ export default function BecomeDonor() {
     </motion.div>
   );
 }
-

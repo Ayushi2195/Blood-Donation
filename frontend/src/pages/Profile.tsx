@@ -1,9 +1,8 @@
-
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import avatar1 from "../assets/avatar1.png";
 import avatar2 from "../assets/avatar2.png";
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { getFromBackend, patchToBackend } from "../store/fetchdata";
 import { baseUrl } from "../url";
 
@@ -12,6 +11,7 @@ export default function Profile() {
   const [loading, setLoading] = useState(true);
   const [showQualitiesModal, setShowQualitiesModal] = useState(false);
   const [selectedQualities, setSelectedQualities] = useState<string[]>([]);
+  const navigate = useNavigate();
 
   const specialQualitiesList = [
     "Available Today",
@@ -24,6 +24,11 @@ export default function Profile() {
   ];
 
   useEffect(() => {
+    // Redirect to login if not authenticated
+    if (!localStorage.getItem("token")) {
+      navigate("/login");
+      return;
+    }
     async function fetchProfile() {
       try {
         const res = await getFromBackend(`${baseUrl}/api/user/profile`);
@@ -38,7 +43,7 @@ export default function Profile() {
       }
     }
     fetchProfile();
-  }, []);
+  }, [navigate]);
 
   const saveQualitiesToBackend = async () => {
     try { 
@@ -200,4 +205,3 @@ export default function Profile() {
     </motion.div>
   );
 }
-

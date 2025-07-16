@@ -1,7 +1,9 @@
 import React from "react";
+import { postToBackend } from "../store/fetchdata";
+import { baseUrl } from "../url";
 
 type Donor = {
-  id: number;
+  id: string;
   name: string;
   bloodType: string;
   location: string;
@@ -23,12 +25,20 @@ type DonorCardProps = {
   donor: Donor;
   viewMode: "list" | "grid";
   onViewDetails: (donor: Donor) => void;
-  onContact: (donor: Donor) => void;
 };
 
-const DonorCard: React.FC<DonorCardProps> = ({ donor, viewMode, onViewDetails, onContact }) => {
+const DonorCard: React.FC<DonorCardProps> = ({ donor, viewMode, onViewDetails }) => {
   const specialQualities = donor.specialQualities ?? [];
-  const languages = donor.languages ?? [];
+
+  const handleContact = async (donorId: string) => {
+    try {
+      await postToBackend(`${baseUrl}/api/notifications/request`, { donorId });
+      alert("Request sent to donor successfully!");
+    } catch (error) {
+      console.error("Failed to send patient request:", error);
+      alert("Failed to send request. Please try again.");
+    }
+  };
 
   if (viewMode === "grid") {
     return (
@@ -71,14 +81,11 @@ const DonorCard: React.FC<DonorCardProps> = ({ donor, viewMode, onViewDetails, o
         </div>
         <div className="flex gap-2">
           <button
-            className="px-4 py-2 bg-gray-100 text-black rounded-lg hover:bg-gray-200 transition"
-            onClick={e => { e.stopPropagation(); onViewDetails(donor); }}
-          >
-            View Details
-          </button>
-          <button
             className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition"
-            onClick={e => { e.stopPropagation(); onContact(donor); }}
+            onClick={e => {
+              e.stopPropagation();
+              handleContact(donor.id);
+            }}
           >
             Contact Donor
           </button>
@@ -87,7 +94,6 @@ const DonorCard: React.FC<DonorCardProps> = ({ donor, viewMode, onViewDetails, o
     );
   }
 
-  // List view
   return (
     <div className="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition cursor-pointer" onClick={() => onViewDetails(donor)}>
       <div className="flex items-center justify-between">
@@ -123,14 +129,11 @@ const DonorCard: React.FC<DonorCardProps> = ({ donor, viewMode, onViewDetails, o
         </div>
         <div className="flex gap-2">
           <button
-            className="px-4 py-2 bg-gray-100 text-black rounded-lg hover:bg-gray-200 transition"
-            onClick={e => { e.stopPropagation(); onViewDetails(donor); }}
-          >
-            View Details
-          </button>
-          <button
             className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition"
-            onClick={e => { e.stopPropagation(); onContact(donor); }}
+            onClick={e => {
+              e.stopPropagation();
+              handleContact(donor.id);
+            }}
           >
             Contact Donor
           </button>
