@@ -41,12 +41,40 @@ export const updateDonorStatus = async (req, res) => {
   }
 };
 
-export const getAllDonors = async (req, res) => {
+export const findDonors = async (req, res) => {
   try {
-    const donors = await User.find({
+    const { search, bloodType, location, requirements } = req.query;
+
+    const query = {
       role: "donor",
       isDonorAvailable: true,
-    }).select("-password -__v"); // Exclude sensitive fields
+    };
+
+    if (search) {
+      query.$or = [
+        { name: { $regex: search, $options: "i" } },
+        { city: { $regex: search, $options: "i" } },
+        { state: { $regex: search, $options: "i" } },
+        { specialQualities: { $regex: search, $options: "i" } },
+      ];
+    }
+
+    if (bloodType) {
+      query.bloodGroup = bloodType;
+    }
+
+    if (location) {
+      query.city = { $regex: location, $options: "i" };
+    }
+
+    if (requirements) {
+      const reqArr = Array.isArray(requirements) ? requirements : [requirements];
+      query.specialQualities = { $in: reqArr };
+    }
+
+    const donors = await User.find(query)
+      .select("name email phone city state country bloodGroup specialQualities isDonorAvailable")
+      .lean();
 
     res.status(200).json(donors);
   } catch (error) {
