@@ -40,3 +40,16 @@ export const updateDonorStatus = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
+
+export const getAllDonors = async (req, res) => {
+  try {
+    const donors = await User.find({
+      role: "donor",
+      isDonorAvailable: true,
+    }).select("-password -__v"); // Exclude sensitive fields
+
+    res.status(200).json(donors);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
