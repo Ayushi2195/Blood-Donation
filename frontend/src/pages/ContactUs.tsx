@@ -7,25 +7,21 @@ export default function ContactUs() {
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
   e.preventDefault();
-  
   const form = e.target as HTMLFormElement;
   const data = {
     name: (form.elements.namedItem('name') as HTMLInputElement)?.value || '',
     email: (form.elements.namedItem('email') as HTMLInputElement)?.value || '',
     message: (form.elements.namedItem('message') as HTMLTextAreaElement)?.value || '',
   };
-
   try {
     const response = await fetch(`${baseUrl}/api/contact`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data),
     });
-
     if (!response.ok) {
       throw new Error('Something went wrong');
     }
-
     setSubmitted(true);
     console.log('Message sent successfully');
   } catch (err) {
@@ -40,8 +36,9 @@ export default function ContactUs() {
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -40 }}
       transition={{ duration: 0.6 }}
-      className="flex flex-col items-center pt-32 min-h-screen px-4 bg-gradient-to-b from-red-50 to-white w-screen"
+      className="flex flex-col items-center pt-32 min-h-screen px-4 bg-gradient-to-b from-rose-150 to-rose-200 w-screen"
     >
+      <div className="bg-white rounded-xl shadow p-8 max-w-2xl w-full flex flex-col items-center">
       <h1 className="text-4xl font-extrabold mb-2 text-red-700 text-center">Your Words Can Spark Hope</h1>
       <p className="mb-6 text-lg text-gray-700 max-w-2xl text-center">
         Every great movement begins with a single voice. Whether you need any help, have any issues, want to volunteer, share feedback, or simply say hello, we're eager to hear from you. 
@@ -80,6 +77,7 @@ export default function ContactUs() {
             <button className="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 w-full" type="submit">Send</button>
           </form>
         )}
+        </div>
       </div>
     </motion.div>
   );

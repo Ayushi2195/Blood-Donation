@@ -88,7 +88,7 @@ export default function FAQ() {
         {faqs.map((faq, i) => (
           <div
             key={i}
-            className="bg-white rounded-xl shadow p-8"
+            className="bg-white rounded-xl shadow p-8 w-screen md:w-full"
           >
             <h2 className="text-2xl font-bold mb-4 text-red-600">{faq.question}</h2>
             <p className="text-sm text-gray-700 leading-relaxed">{faq.answer}</p>
