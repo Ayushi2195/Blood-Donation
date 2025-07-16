@@ -5,19 +5,16 @@ interface AuthContextType {
     storeTokenInLS: (serverToken: string) => void;
     getToken: () => string | null;
     logout: () => void;
-    isLoading: boolean;
 }
 
 export const AuthContext = createContext<AuthContextType | null>(null);
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     const [token, setToken] = useState<string | null>(null);
-    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
         const storedToken = localStorage.getItem('token');
-        setToken(storedToken);
-        setIsLoading(false);
+        setToken(storedToken && storedToken.trim() !== "" ? storedToken : null);
     }, []);
 
     const storeTokenInLS = (serverToken: string) => {
@@ -33,7 +30,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     };
 
     return (
-        <AuthContext.Provider value={{ token, storeTokenInLS, getToken, logout, isLoading }}>
+        <AuthContext.Provider value={{ token, storeTokenInLS, getToken, logout }}>
             {children}
         </AuthContext.Provider>
     );
