@@ -1,23 +1,26 @@
-import { createContext, useContext, useState, useEffect, type ReactNode } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 
-type AuthContextType = {
+interface AuthContextType {
     token: string | null;
-    storeTokeninLS: (serverToken: string) => void;
+    storeTokenInLS: (serverToken: string) => void;
     getToken: () => string | null;
     logout: () => void;
-};
+    isLoading: boolean;
+}
 
 export const AuthContext = createContext<AuthContextType | null>(null);
 
-export const AuthProvider = ({ children }: { children: ReactNode }) => {
+export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     const [token, setToken] = useState<string | null>(null);
+    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
         const storedToken = localStorage.getItem('token');
-        if (storedToken) setToken(storedToken);
+        setToken(storedToken);
+        setIsLoading(false);
     }, []);
 
-    const storeTokeninLS = (serverToken: string) => {
+    const storeTokenInLS = (serverToken: string) => {
         localStorage.setItem('token', serverToken);
         setToken(serverToken);
     };
@@ -30,16 +33,16 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     };
 
     return (
-        <AuthContext.Provider value={{ token, storeTokeninLS, getToken, logout }}>
+        <AuthContext.Provider value={{ token, storeTokenInLS, getToken, logout, isLoading }}>
             {children}
         </AuthContext.Provider>
     );
 };
 
 export const useAuth = () => {
-    const authContextValue = useContext(AuthContext);
-    if (!authContextValue) {
-        throw new Error("useAuth used outside of the Provider");
+    const context = useContext(AuthContext);
+    if (!context) {
+        throw new Error("useAuth must be used within AuthProvider");
     }
-    return authContextValue;
+    return context;
 };

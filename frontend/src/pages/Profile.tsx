@@ -1,17 +1,20 @@
-import { useEffect, useState } from "react";
+
+import React, { useEffect, useState } from "react";
 import avatar1 from "../assets/avatar1.png";
 import avatar2 from "../assets/avatar2.png";
 import { motion } from "framer-motion";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { getFromBackend, patchToBackend } from "../store/fetchdata";
 import { baseUrl } from "../url";
+import { useAuth } from "../store/auth.tsx"; // Adjust this path as per your project
+import axios from "axios";
 
 export default function Profile() {
+  const { logout, getToken } = useAuth();
   const [user, setUser] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [showQualitiesModal, setShowQualitiesModal] = useState(false);
   const [selectedQualities, setSelectedQualities] = useState<string[]>([]);
-  const navigate = useNavigate();
 
   const specialQualitiesList = [
     "Available Today",
@@ -24,11 +27,6 @@ export default function Profile() {
   ];
 
   useEffect(() => {
-    // Redirect to login if not authenticated
-    if (!localStorage.getItem("token")) {
-      navigate("/login");
-      return;
-    }
     async function fetchProfile() {
       try {
         const res = await getFromBackend(`${baseUrl}/api/user/profile`);
@@ -43,7 +41,7 @@ export default function Profile() {
       }
     }
     fetchProfile();
-  }, [navigate]);
+  }, []);
 
   const saveQualitiesToBackend = async () => {
     try { 
@@ -71,6 +69,17 @@ export default function Profile() {
       </div>
     );
   }
+
+  const handleLogout = async () => {
+    try {
+      const token = getToken();
+      await axios.delete(`${baseUrl}/api/auth/logout`, { data: { token } });
+      logout();
+      window.location.href = "/";
+    } catch (error) {
+      console.error("Logout failed:", error);
+    }
+  };
 
   return (
     <motion.div
@@ -142,7 +151,12 @@ export default function Profile() {
           >
             Add Special Qualities
           </button>
-          <button className="bg-gray-300 text-gray-800 px-4 py-2 rounded hover:bg-gray-400 font-semibold">Logout</button>
+          <button
+            className="bg-gray-300 text-gray-800 px-4 py-2 rounded hover:bg-gray-400 font-semibold"
+            onClick={handleLogout}
+          >
+            Logout
+          </button>
         </div>
 
         {showQualitiesModal && (
@@ -205,3 +219,4 @@ export default function Profile() {
     </motion.div>
   );
 }
+
