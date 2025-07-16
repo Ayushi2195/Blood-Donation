@@ -8,15 +8,15 @@ type Donor = {
   rating: number;
   lastDonation: string;
   availability: string;
-  specialQualities: string[];
+  specialQualities?: string[];
   contact: string;
   verified: boolean;
   emergencyReady: boolean;
-  languages: string[];
-  healthStatus: string;
-  donationCount: number;
-  responseTime: string;
-  socialConnections: number;
+  languages?: string[];
+  healthStatus?: string;
+  donationCount?: number;
+  responseTime?: string;
+  socialConnections?: number;
 };
 
 type DonorCardProps = {
@@ -27,6 +27,9 @@ type DonorCardProps = {
 };
 
 const DonorCard: React.FC<DonorCardProps> = ({ donor, viewMode, onViewDetails, onContact }) => {
+  const specialQualities = donor.specialQualities ?? [];
+  const languages = donor.languages ?? [];
+
   if (viewMode === "grid") {
     return (
       <div className="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition cursor-pointer" onClick={() => onViewDetails(donor)}>
@@ -60,11 +63,11 @@ const DonorCard: React.FC<DonorCardProps> = ({ donor, viewMode, onViewDetails, o
           <div className="text-sm font-semibold text-green-800">{donor.availability}</div>
         </div>
         <div className="flex flex-wrap gap-1 mb-4">
-          {donor.specialQualities.map((quality, idx) => (
+          {specialQualities.length > 0 ? specialQualities.map((quality, idx) => (
             <span key={idx} className="px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded-full">
               {quality}
             </span>
-          ))}
+          )) : <span className="text-gray-500 text-sm">No preferences listed.</span>}
         </div>
         <div className="flex gap-2">
           <button
@@ -83,6 +86,7 @@ const DonorCard: React.FC<DonorCardProps> = ({ donor, viewMode, onViewDetails, o
       </div>
     );
   }
+
   // List view
   return (
     <div className="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition cursor-pointer" onClick={() => onViewDetails(donor)}>
@@ -111,11 +115,11 @@ const DonorCard: React.FC<DonorCardProps> = ({ donor, viewMode, onViewDetails, o
       </div>
       <div className="mt-4 flex items-center justify-between">
         <div className="flex flex-wrap gap-2">
-          {donor.specialQualities.map((quality, idx) => (
+          {specialQualities.length > 0 ? specialQualities.map((quality, idx) => (
             <span key={idx} className="px-3 py-1 bg-blue-100 text-blue-800 text-sm rounded-full">
               {quality}
             </span>
-          ))}
+          )) : <span className="text-gray-500 text-sm">No preferences listed.</span>}
         </div>
         <div className="flex gap-2">
           <button
@@ -139,4 +143,4 @@ const DonorCard: React.FC<DonorCardProps> = ({ donor, viewMode, onViewDetails, o
   );
 };
 
-export default DonorCard; 
+export default DonorCard;

@@ -43,7 +43,7 @@ export const updateDonorStatus = async (req, res) => {
 
 export const findDonors = async (req, res) => {
   try {
-    const { search, bloodType, location, requirements } = req.query;
+    const { search, bloodType, location, preferences } = req.query;
 
     const query = {
       role: "donor",
@@ -55,7 +55,7 @@ export const findDonors = async (req, res) => {
         { name: { $regex: search, $options: "i" } },
         { city: { $regex: search, $options: "i" } },
         { state: { $regex: search, $options: "i" } },
-        { specialQualities: { $regex: search, $options: "i" } },
+        { preferences: { $regex: search, $options: "i" } },
       ];
     }
 
@@ -67,13 +67,13 @@ export const findDonors = async (req, res) => {
       query.city = { $regex: location, $options: "i" };
     }
 
-    if (requirements) {
-      const reqArr = Array.isArray(requirements) ? requirements : [requirements];
-      query.specialQualities = { $in: reqArr };
+    if (preferences) {
+      const reqArr = Array.isArray(preferences) ? preferences : [preferences];
+      query.preferences = { $in: reqArr };
     }
 
     const donors = await User.find(query)
-      .select("name email phone city state country bloodGroup specialQualities isDonorAvailable")
+      .select("name email phone city state country bloodGroup preferences isDonorAvailable")
       .lean();
 
     res.status(200).json(donors);
