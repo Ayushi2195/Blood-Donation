@@ -134,14 +134,14 @@ export default function Profile() {
               >
                 ×
               </button>
-              <h3 className="text-xl font-bold mb-4 text-purple-700">Select Special Qualities</h3>
+              <h3 className="text-xl font-bold mb-4 text-emerald-600">Select Special Qualities</h3>
               <div className="flex flex-wrap gap-2 mb-6">
                 {specialQualitiesList.map((quality) => (
                   <button
                     key={quality}
                     className={`px-3 py-1 rounded-full text-sm font-medium border transition ${
                       selectedQualities.includes(quality)
-                        ? "bg-purple-600 text-white border-purple-600"
+                        ? "bg-emerald-600 text-white border-emerald-600"
                         : "bg-gray-100 text-gray-700 border-gray-300 hover:bg-gray-200"
                     }`}
                     onClick={() => {
@@ -157,7 +157,7 @@ export default function Profile() {
                 ))}
               </div>
               <button
-                className="w-full bg-purple-600 text-white py-2 rounded font-semibold hover:bg-purple-700"
+                className="w-full bg-emerald-500 text-white py-2 rounded font-semibold hover:bg-emerald-600"
                 onClick={() => {
                   setUser((u: any) => ({ ...u, specialQualities: selectedQualities }));
                   setShowQualitiesModal(false);
