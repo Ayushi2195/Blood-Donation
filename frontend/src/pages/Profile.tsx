@@ -1,4 +1,6 @@
 
+
+
 import React, { useEffect, useState } from "react";
 import avatar1 from "../assets/avatar1.png";
 import avatar2 from "../assets/avatar2.png";
@@ -75,7 +77,7 @@ export default function Profile() {
       const token = getToken();
       await axios.delete(`${baseUrl}/api/auth/logout`, { data: { token } });
       logout();
-      window.location.href = "/";
+      window.location.href = "/"; // Redirect to home or login page after logout
     } catch (error) {
       console.error("Logout failed:", error);
     }
@@ -219,4 +221,5 @@ export default function Profile() {
     </motion.div>
   );
 }
+
 

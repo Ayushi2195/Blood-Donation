@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 
 const bloodGroups = ["A+", "A-", "B+", "B-", "O+", "O-", "AB+", "AB-"];
 const urgencyLevels = ["Immediate", "Within 2 hours", "Today", "Tomorrow"];
@@ -17,11 +18,7 @@ const recentRequests = [
 ];
 const hotline = "+91 1800-123-456";
 const activityTicker = [
-  "3 donors are online now",
-  "2 requests fulfilled in the last hour",
-  "Blood units available: 12",
-  "New donor registered: Priya S.",
-  "Urgent O- request in Mumbai",
+  "The gift of blood is the gift of life. There is no substitute for human blood."
 ];
 
 function Confetti() {
@@ -49,12 +46,20 @@ export default function Emergency() {
   const [showConfetti, setShowConfetti] = useState(false);
   const [tickerIdx, setTickerIdx] = useState(0);
   const audioRef = useRef<HTMLAudioElement>(null);
+  const [showLoginModal, setShowLoginModal] = useState(false);
+  const navigate = useNavigate();
 
   React.useEffect(() => {
     const interval = setInterval(() => {
       setTickerIdx((idx) => (idx + 1) % activityTicker.length);
     }, 3000);
     return () => clearInterval(interval);
+  }, []);
+
+  useEffect(() => {
+    if (!localStorage.getItem("token")) {
+      setShowLoginModal(true);
+    }
   }, []);
 
   useEffect(() => {
@@ -101,6 +106,19 @@ export default function Emergency() {
       transition={{ duration: 0.6 }}
       className="flex flex-col items-center min-h-screen pt-32 relative overflow-x-hidden"
     >
+      {showLoginModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50">
+          <div className="bg-white rounded-xl shadow-lg p-8 max-w-sm w-full flex flex-col items-center">
+            <h2 className="text-xl font-bold mb-4 text-red-700 text-center">Please login to continue</h2>
+            <button
+              className="bg-red-600 text-white px-6 py-2 rounded-lg font-semibold hover:bg-red-700 transition"
+              onClick={() => navigate("/login")}
+            >
+              Login
+            </button>
+          </div>
+        </div>
+      )}
       <style>{`
         @keyframes emergency-bg {
           0% { background-position: 0% 50%; }
@@ -249,9 +267,7 @@ export default function Emergency() {
             <div className="italic text-lg text-pink-700 mb-2">“The gift of blood is the gift of life. There is no substitute for human blood.”</div>
             <div className="text-sm text-gray-600 mb-4">Every donation counts. Thank you for being a hero in someone's story!</div>
             <div className="font-bold text-gray-800 mb-2">Need more help?</div>
-            <a href={`tel:${hotline}`} className="bg-red-600 text-white px-4 py-2 rounded-lg font-semibold shadow hover:bg-red-700 transition mb-2 inline-block">Call Emergency Helpline</a>
-            <br />
-            <a href="/contact-us" className="text-pink-600 font-semibold hover:underline inline-block">Contact Support</a>
+            <a href="http://localhost:5173/contact" className="text-pink-600 font-semibold hover:underline inline-block">Contact Support</a>
           </div>
         </div>
         {/* Right-side stacked sections */}

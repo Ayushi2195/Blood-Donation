@@ -81,7 +81,7 @@ export default function FAQ() {
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -40 }}
       transition={{ duration: 0.6 }}
-      className="flex flex-col items-center justify-center min-h-screen pt-32 px-4 w-full"
+      className="flex flex-col items-center justify-center min-h-screen pt-32 px-4 w-screen"
     >
       <h1 className="w-full text-3xl font-bold mb-8 text-center md:ml-8">FAQ's</h1>
       <div className="max-w-6xl w-full grid grid-cols-1 md:grid-cols-2 gap-10 px-4 mx-auto md:ml-8">

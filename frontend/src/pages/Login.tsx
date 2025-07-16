@@ -4,12 +4,14 @@ import { Link, useNavigate } from "react-router-dom";
 import { baseUrl } from "../url";
 import { postToBackend } from "../store/fetchdata.ts";
 import { motion } from "framer-motion";
+import { useAuth } from "../store/auth.tsx";
 
 export default function Login() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
     const navigate = useNavigate();
+    const { storeTokenInLS } = useAuth();
 
     const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -21,8 +23,7 @@ export default function Login() {
         try {
             const response = await postToBackend(`${baseUrl}/api/auth/login`, { email, password }, false);
             const { accessToken } = response.data;
-
-            localStorage.setItem('token', accessToken);
+            storeTokenInLS(accessToken);
             console.log(`Login successful for email: ${email}`);
             navigate("/"); // Navigate to home/dashboard after login
         } catch (err: any) {

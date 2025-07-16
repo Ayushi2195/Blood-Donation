@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
+import { useAuth } from "../store/auth.tsx";
 
 const mainLinks = [
   { name: "Home", path: "/" },
@@ -33,6 +34,8 @@ export default function Navbar() {
   const location = useLocation();
   const [showDropdown, setShowDropdown] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const { token } = useAuth();
+  const profileLink: string = token && typeof token === 'string' && token.trim() !== '' ? "/profile" : "/login";
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
@@ -85,7 +88,7 @@ export default function Navbar() {
           <span className="absolute -top-1 -right-1 w-2.5 h-2.5 bg-red-600 rounded-full border-2 border-white"></span>
         </Link>
         {/* Profile Avatar Icon */}
-        <Link to="/profile" className="ml-2">
+        <Link to={`${profileLink}`} className="ml-2">
           <div className="w-8 h-8 rounded-full bg-white border border-neutral-800 flex items-center justify-center shadow">
             <svg
               className="w-6 h-6 text-black"
