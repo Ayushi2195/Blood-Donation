@@ -1,9 +1,10 @@
+
 import React, { useEffect, useState } from "react";
 import avatar1 from "../assets/avatar1.png";
 import avatar2 from "../assets/avatar2.png";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import { getFromBackend } from "../store/fetchdata";
+import { getFromBackend, patchToBackend } from "../store/fetchdata";
 import { baseUrl } from "../url";
 
 export default function Profile() {
@@ -27,6 +28,9 @@ export default function Profile() {
       try {
         const res = await getFromBackend(`${baseUrl}/api/user/profile`);
         setUser(res.data);
+        if (res.data.preferences) {
+          setSelectedQualities(res.data.preferences);
+        }
       } catch (err) {
         console.error("Error fetching profile:", err);
       } finally {
@@ -36,11 +40,16 @@ export default function Profile() {
     fetchProfile();
   }, []);
 
-  useEffect(() => {
-    if (user && user.specialQualities) {
-      setSelectedQualities(user.specialQualities);
+  const saveQualitiesToBackend = async () => {
+    try { 
+      await patchToBackend(`${baseUrl}/api/donor/preferences`, {
+        preferences: selectedQualities
+      });
+      console.log("Saved preferences:", selectedQualities);
+    } catch (error) {
+      console.error("Failed to save preferences:", error);
     }
-  }, [user]);
+  };
 
   if (loading) {
     return (
@@ -67,7 +76,6 @@ export default function Profile() {
       className="flex flex-col items-center min-h-screen pt-32 px-2 w-screen bg-gray-50"
     >
       <div className="max-w-2xl w-full mx-auto bg-white rounded-xl shadow p-8 mb-8">
-        {/* Profile Picture and Info */}
         <div className="flex flex-col md:flex-row items-center md:items-start gap-8 mb-8">
           <div className="w-28 h-28 rounded-full bg-gray-200 flex items-center justify-center shrink-0 overflow-hidden">
             <img
@@ -77,7 +85,9 @@ export default function Profile() {
             />
           </div>
           <div className="flex-1 flex flex-col gap-2">
-            <div className="text-lg font-bold text-gray-800">Name: <span className="font-normal">{user.name}</span></div>
+            <div className="text-lg font-bold text-gray-800">
+              Name: <span className="font-normal">{user.name}</span>
+            </div>
             <div className="text-base text-gray-700">Email: {user.email}</div>
             <div className="text-base text-gray-700">Phone: {user.phone}</div>
             <div className="text-base text-gray-700">Date of Birth: {user.dateofBirth?.slice(0, 10)}</div>
@@ -89,7 +99,6 @@ export default function Profile() {
           </div>
         </div>
 
-        {/* Donor Status */}
         <div className="flex flex-col md:flex-row gap-6 mb-8 border-t border-b py-4">
           <div className="flex-1 flex flex-col gap-1">
             <span className="font-semibold text-gray-700">
@@ -109,22 +118,28 @@ export default function Profile() {
           </div>
         </div>
 
-        {/* Buttons */}
         <div className="flex flex-col md:flex-row gap-4 mb-8 justify-center">
+          <button className="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 font-semibold">Edit Profile</button>
           <button
-            className="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 font-semibold"
-          >
-            Edit Profile
-          </button>
-          <button
-            className={`text-white px-4 py-2 rounded font-semibold ${showQualitiesModal ? 'bg-emerald-700' : 'bg-emerald-500 hover:bg-emerald-600'}`}
-            onClick={() => setShowQualitiesModal(true)}
+            className={`text-white px-4 py-2 rounded font-semibold ${
+              user.isDonorAvailable
+                ? showQualitiesModal
+                  ? "bg-emerald-700"
+                  : "bg-emerald-500 hover:bg-emerald-600"
+                : "bg-gray-300 cursor-not-allowed"
+            }`}
+            disabled={!user.isDonorAvailable}
+            onClick={() => {
+              if (user.isDonorAvailable) {
+                setShowQualitiesModal(true);
+              }
+            }}
           >
             Add Special Qualities
           </button>
           <button className="bg-gray-300 text-gray-800 px-4 py-2 rounded hover:bg-gray-400 font-semibold">Logout</button>
         </div>
-        {/* Special Qualities Modal */}
+
         {showQualitiesModal && (
           <div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50">
             <div className="bg-white rounded-xl shadow-lg p-8 max-w-md w-full relative">
@@ -146,9 +161,7 @@ export default function Profile() {
                     }`}
                     onClick={() => {
                       setSelectedQualities((prev) =>
-                        prev.includes(quality)
-                          ? prev.filter((q) => q !== quality)
-                          : [...prev, quality]
+                        prev.includes(quality) ? prev.filter((q) => q !== quality) : [...prev, quality]
                       );
                     }}
                   >
@@ -158,18 +171,25 @@ export default function Profile() {
               </div>
               <button
                 className="w-full bg-emerald-500 text-white py-2 rounded font-semibold hover:bg-emerald-600"
-                onClick={() => {
-                  setUser((u: any) => ({ ...u, specialQualities: selectedQualities }));
+                onClick={async () => {
+                  await saveQualitiesToBackend();
+                  setUser((u: any) => ({ ...u, preferences: selectedQualities }));
                   setShowQualitiesModal(false);
                 }}
               >
                 Save
               </button>
             </div>
+
+            {!user.isDonorAvailable && (
+            <p className="text-xs text-gray-500 text-center mt-2">
+              Only active donors can set special qualities.
+            </p>
+            )}
           </div>
         )}
 
-        {/* Legal */}
+
         <div className="w-full text-xs text-gray-500 text-center border-t pt-4">
           <p>
             <Link to="/privacy" className="underline">Privacy Policy</Link> |{" "}
@@ -180,3 +200,4 @@ export default function Profile() {
     </motion.div>
   );
 }
+

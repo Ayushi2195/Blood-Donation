@@ -51,14 +51,14 @@ export default function Testimonials() {
   }, [location.pathname]);
 
   return (
-    <div className={`flex flex-col items-center justify-center min-h-screen px-4 py-12 bg-gray-50 transition-all duration-700 ease-out ${mounted ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'}`}
-      style={{ marginTop: '3.5rem', marginLeft: '6cm' }}
+    <div className={`flex flex-col items-center min-h-screen px-4 py-12 bg-gray-50 transition-all duration-700 ease-out w-screen ${mounted ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'}`}
+      style={{ marginTop: '3.5rem' }}
     >
-      <h1 className="text-4xl font-extrabold mb-2 text-red-700">Testimonials</h1>
-      <h2 className="text-2xl font-semibold mb-8 text-red-500">Community Voices & Recognition</h2>
+      <h1 className="text-4xl font-extrabold mb-2 text-red-700 text-center">Testimonials</h1>
+      <h2 className="text-2xl font-semibold mb-8 text-red-500 text-center">Community Voices & Recognition</h2>
       {/* Partner/Organization Endorsements */}
       <section className="w-full max-w-3xl mb-12">
-        <h2 className="text-2xl font-bold mb-4 text-blue-700">Our Partners Say</h2>
+        <h2 className="text-2xl font-bold mb-4 text-blue-700 text-center">Our Partners Say</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {partners.map((p) => (
             <div key={p.name} className="bg-white rounded shadow p-4 flex flex-col items-center text-center">
@@ -71,7 +71,7 @@ export default function Testimonials() {
       </section>
       {/* Social Media Wall */}
       <section className="w-full max-w-3xl mb-12">
-        <h2 className="text-2xl font-bold mb-4 text-purple-700">Social Media Wall</h2>
+        <h2 className="text-2xl font-bold mb-4 text-purple-700 text-center">Social Media Wall</h2>
         <div className="bg-white rounded shadow p-4 flex flex-col gap-4">
           {socialMedia.map((post, i) => (
             <div key={i} className="flex items-start gap-3">
@@ -87,7 +87,7 @@ export default function Testimonials() {
       </section>
       {/* Awards & Recognition */}
       <section className="w-full max-w-3xl mb-12">
-        <h2 className="text-2xl font-bold mb-4 text-yellow-700">Awards & Recognition</h2>
+        <h2 className="text-2xl font-bold mb-4 text-yellow-700 text-center">Awards & Recognition</h2>
         <div className="flex flex-wrap gap-6 justify-center">
           {awards.map((a) => (
             <div key={a.name} className="flex flex-col items-center bg-white rounded shadow p-4 min-w-[160px]">
@@ -99,18 +99,18 @@ export default function Testimonials() {
       </section>
       {/* Featured Donor of the Month */}
       <section className="w-full max-w-2xl mb-12">
-        <h2 className="text-2xl font-bold mb-4 text-green-700">Featured Donor of the Month</h2>
+        <h2 className="text-2xl font-bold mb-4 text-green-700 text-center">Featured Donor of the Month</h2>
         <div className="flex flex-col md:flex-row items-center gap-6 bg-white rounded shadow p-6">
           <img src={featuredDonor.photo} alt={featuredDonor.name} className="w-24 h-24 rounded-full object-cover border-4 border-green-300" />
           <div>
-            <div className="font-bold text-lg text-green-800 mb-1">{featuredDonor.name}</div>
-            <div className="text-gray-700 italic">"{featuredDonor.interview}"</div>
+            <div className="font-bold text-lg text-green-800 mb-1 text-center md:text-left">{featuredDonor.name}</div>
+            <div className="text-gray-700 italic text-center md:text-left">"{featuredDonor.interview}"</div>
           </div>
         </div>
       </section>
       {/* Thank You Wall */}
       <section className="w-full max-w-2xl mb-12">
-        <h2 className="text-2xl font-bold mb-4 text-pink-700">Thank You Wall</h2>
+        <h2 className="text-2xl font-bold mb-4 text-pink-700 text-center">Thank You Wall</h2>
         <div className="bg-white rounded shadow p-6 h-24 flex items-center justify-center text-lg font-semibold text-pink-600 animate-pulse min-h-[4rem]">
           {thankYous[thankYouIdx]}
         </div>

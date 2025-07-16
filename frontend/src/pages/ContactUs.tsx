@@ -40,8 +40,7 @@ export default function ContactUs() {
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -40 }}
       transition={{ duration: 0.6 }}
-      className="flex flex-col items-center pt-32 min-h-screen px-4 bg-gradient-to-b from-red-50 to-white"
-      style={{ marginLeft: '7cm' }}
+      className="flex flex-col items-center pt-32 min-h-screen px-4 bg-gradient-to-b from-red-50 to-white w-screen"
     >
       <h1 className="text-4xl font-extrabold mb-2 text-red-700 text-center">Your Words Can Spark Hope</h1>
       <p className="mb-6 text-lg text-gray-700 max-w-2xl text-center">

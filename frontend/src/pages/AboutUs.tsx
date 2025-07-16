@@ -17,21 +17,21 @@ export default function AboutUs() {
   }, [location.pathname]);
   return (
     <div
-      className={`flex flex-col items-center justify-center min-h-screen px-4 py-12 bg-gray-50 transition-all duration-700 ease-out ${mounted ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'}`}
-      style={{ marginLeft: '7.25cm', marginTop: '3.5rem' }}
+      className={`flex flex-col items-center min-h-screen px-4 py-12 bg-gray-50 transition-all duration-700 ease-out w-screen ${mounted ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'}`}
+      style={{ marginTop: '3.5rem' }}
     >
-      <h1 className="text-4xl font-extrabold mb-4 text-red-700">About Us</h1>
-      <p className="max-w-2xl text-center mb-8 text-lg text-gray-700">
+      <h1 className="text-4xl font-extrabold mb-4 text-red-700 text-center">About Us</h1>
+      <p className="max-w-2xl mb-8 text-lg text-gray-700 text-center">
         LifeDrop is dedicated to connecting blood donors with those in need. Our mission is to save lives by making blood donation accessible, safe, and efficient for everyone.
       </p>
       <section id="mission" className="max-w-2xl mb-12">
-        <h2 className="text-2xl font-bold mb-2 text-red-600">Our Mission</h2>
-        <p className="text-gray-700">
+        <h2 className="text-2xl font-bold mb-2 text-red-600 text-center">Our Mission</h2>
+        <p className="text-gray-700 text-center">
           To create a seamless, trustworthy, and supportive network for blood donation. We strive to empower communities, raise awareness, and ensure that no one has to wait for the blood they need.
         </p>
       </section>
       <section id="team" className="max-w-2xl mb-12">
-        <h2 className="text-2xl font-bold mb-2 text-blue-600">Our Team</h2>
+        <h2 className="text-2xl font-bold mb-2 text-blue-600 text-center">Our Team</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {teamMembers.map((member) => (
             <div key={member.name} className="bg-white rounded-lg shadow p-4 flex flex-col items-center">
@@ -46,8 +46,8 @@ export default function AboutUs() {
         </div>
       </section>
       <section id="values" className="max-w-2xl mb-12">
-        <h2 className="text-2xl font-bold mb-2 text-green-600" style={{ marginLeft: '-1.75rem' }}>Our Values</h2>
-        <ul className="list-disc list-inside text-gray-700">
+        <h2 className="text-2xl font-bold mb-2 text-green-600 text-center" style={{ marginLeft: '-1.75rem' }}>Our Values</h2>
+        <ul className="list-disc list-inside text-gray-700 text-left">
           <li>Compassion: We care deeply about every life and every donation.</li>
           <li>Trust: We ensure safety, privacy, and transparency in every interaction.</li>
           <li>Community: We believe in the power of people helping people.</li>
@@ -55,7 +55,7 @@ export default function AboutUs() {
         </ul>
       </section>
       <section id="timeline" className="max-w-2xl mb-12">
-        <h2 className="text-2xl font-bold mb-2 text-indigo-600">Our Journey</h2>
+        <h2 className="text-2xl font-bold mb-2 text-indigo-600 text-center">Our Journey</h2>
         <ol className="relative border-l border-indigo-300 ml-4">
           <li className="mb-8 ml-6">
             <span className="absolute flex items-center justify-center w-6 h-6 bg-indigo-100 rounded-full -left-3 ring-8 ring-white">
