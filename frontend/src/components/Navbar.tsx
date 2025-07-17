@@ -26,6 +26,10 @@ const infoLinks = [
   { name: "Privacy", path: "/privacy", icon: (
       <svg className="inline w-4 h-4 mr-2 text-pink-500" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M12 17a5 5 0 0 0 5-5V7a5 5 0 0 0-10 0v5a5 5 0 0 0 5 5z"/></svg>
     ) },
+  // Login link below Privacy
+  { name: "Login", path: "http://localhost:5173/login", icon: (
+      <svg className="inline w-4 h-4 mr-2 text-gray-500" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M15 12H3m6-6l-6 6 6 6"/></svg>
+    ) },
   // Divider
   { divider: true },
 ];
@@ -88,7 +92,7 @@ export default function Navbar() {
           <span className="absolute -top-1 -right-1 w-2.5 h-2.5 bg-red-600 rounded-full border-2 border-white"></span>
         </Link>
         {/* Profile Avatar Icon */}
-        <Link to={`${profileLink}`} className="ml-2">
+        <Link to={token && typeof token === 'string' && token.trim() !== '' ? "http://localhost:5173/profile" : "http://localhost:5173/login"} className="ml-2">
           <div className="w-8 h-8 rounded-full bg-white border border-neutral-800 flex items-center justify-center shadow">
             <svg
               className="w-6 h-6 text-black"
