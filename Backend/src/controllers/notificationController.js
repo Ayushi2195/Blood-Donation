@@ -30,45 +30,44 @@ export const sendPatientRequest = async (req, res) => {
 };
 
 export const donorResponse = async (req, res) => {
+  const { notificationId } = req.params;
+  const { status, message } = req.body;
+  console.log("donorResponse called with:", { notificationId, status, message });
+
+  const donorId = req.user.id; // ✅ You correctly changed this to `.id`
+
   try {
-    const { notificationId } = req.params;
-    const { status, message } = req.body;
-
-    if (!["approved", "denied"].includes(status)) {
-      return res.status(400).json({ error: "Invalid status." });
-    }
-
-    const donor = await User.findById(req.user.id);
     const notification = await Notification.findById(notificationId);
+    if (!notification) return res.status(404).json({ error: "Notification not found" });
 
-    if (!notification) {
-      return res.status(404).json({ error: "Notification not found." });
-    }
+    if (notification.status !== "pending")
+      return res.status(400).json({ error: "Already responded" });
 
-    // Update existing patient_request notification
+    // Mark the original request as handled
     notification.status = status;
-    notification.data.message = message || "";
     await notification.save();
 
-    // Create new donor_approval notification for the patient
+    // ✅ Fetch donor details
+    const donor = await User.findById(donorId);
+
+    // ✅ Create a new notification back to the patient
     await Notification.create({
-      recipient: notification.sender,
-      sender: donor._id,
       type: "donor_approval",
-      data: {
-        donorName: donor.name,
-        donorPhone: donor.phone,
-        status,
-        message,
-        bloodType: notification.data.bloodType,
-        patientPhone: notification.data.patientPhone,
-      },
+      sender: donorId,                     // donor
+      recipient: notification.sender,      // original sender (patient)
       status: status,
+      data: {
+        donorName: donor.name,             // ✅ Add these
+        donorPhone: donor.phone,           // ✅ Add these
+        message: message || "",
+        bloodType: donor.bloodType         // Optional
+      }
     });
 
-    res.status(200).json({ message: "Response sent to patient." });
-  } catch (error) {
-    res.status(500).json({ error: error.message });
+    res.json({ success: true });
+  } catch (err) {
+    console.error("donorResponse error:", err);
+    res.status(500).json({ error: "Internal server error" });
   }
 };
 
@@ -84,11 +83,14 @@ export const sendEmergencyRequest = async (req, res) => {
       urgency,
     } = req.body;
 
+    const patient = await User.findById(req.user.id);
+
     const donors = await User.find({
       role: "donor",
       isDonorAvailable: true,
-      bloodGroup: bloodType,
+      bloodGroup: bloodType
     });
+
 
     const notifications = donors.map((donor) => ({
       recipient: donor._id,
@@ -106,6 +108,7 @@ export const sendEmergencyRequest = async (req, res) => {
       status: "pending",
     }));
 
+    console.log("Notifications to send:", notifications.length);
     await Notification.insertMany(notifications);
 
     res.status(201).json({ message: "Emergency notifications sent." });

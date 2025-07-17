@@ -15,6 +15,8 @@ const notificationSchema = new mongoose.Schema(
       patientPhone: String,
       hospitalName: String,
       hospitalLocation: String,
+      donorName: String,     
+      donorPhone: String,     
       bloodType: String,
       unitsNeeded: String,
       urgency: String,
