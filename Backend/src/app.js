@@ -18,7 +18,7 @@ const app = express();
 const server = http.createServer(app);
 const PORT = process.env.PORT || 5001;
 
-const FRONTEND_ORIGIN = "http://localhost:5173";
+const FRONTEND_ORIGIN = "https://blood-donation-sqk2.vercel.app";
 
 // Middlewares
 app.use(express.json());
