@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { getFromBackend } from "../store/fetchdata";
 import { baseUrl } from "../url";
 import DonorCard from "../components/DonorCard";
-
+import { useAuth } from "../store/auth";
 interface Donor {
   id: string;
   name: string;
@@ -14,7 +14,7 @@ interface Donor {
   languages: string[];
   donationCount: number;
   lastDonation: string;
-  responseTime: string;
+  Details: string;
   availability: string;
   preferences: string[];
 }
@@ -41,12 +41,14 @@ export default function FindDonor() {
   const [showFilters, setShowFilters] = useState(false);
   const [showLoginModal, setShowLoginModal] = useState(false);
   const navigate = useNavigate();
+  const { isLoggedIn } = useAuth();
 
   useEffect(() => {
-    if (!localStorage.getItem("token")) {
-      setShowLoginModal(true);
-    }
-  }, []);
+      if (!isLoggedIn) {
+          setShowLoginModal(true);
+      }
+  }, [isLoggedIn]);
+
 
   const fetchDonors = useCallback(async () => {
     try {
@@ -70,7 +72,7 @@ export default function FindDonor() {
           languages: d.languages ?? [],
           donationCount: d.donationCount ?? 0,
           lastDonation: d.lastDonation ?? 'N/A',
-          responseTime: d.responseTime ?? 'N/A',
+          Details: 'Contact Donor for Details',
           availability: d.isDonorAvailable ? "Available" : "Unavailable",
           specialQualities: d.preferences ?? [], 
           verified: true,       // placeholder

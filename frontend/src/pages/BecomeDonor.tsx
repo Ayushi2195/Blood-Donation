@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { patchToBackend, getFromBackend } from "../store/fetchdata";
 import { baseUrl } from "../url";
 import { motion } from "framer-motion";
+import { useAuth } from "../store/auth";
 
 export default function BecomeDonor() {
   const [isDonorAvailable, setIsDonorAvailable] = useState(false);
@@ -16,6 +17,7 @@ export default function BecomeDonor() {
   const navigate = useNavigate();
   const fontSizeClass = fontSize === 1 ? "" : fontSize === 1.25 ? "text-lg" : "text-xl";
   const contrastClass = highContrast ? "bg-black text-yellow-200" : "";
+  const { isLoggedIn } = useAuth();
 
   // Fetch current donor status on page load
   useEffect(() => {
@@ -33,11 +35,13 @@ export default function BecomeDonor() {
     fetchDonorStatus();
   }, []);
 
-  useEffect(() => {
-    if (!localStorage.getItem("token")) {
-      setShowLoginModal(true);
+
+useEffect(() => {
+    if (!isLoggedIn) {
+        setShowLoginModal(true);
     }
-  }, []);
+}, [isLoggedIn]);
+
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -180,7 +184,6 @@ export default function BecomeDonor() {
         <div className="bg-white rounded-xl shadow p-6 flex flex-col justify-between">
           <h2 className="text-2xl font-bold mb-3 text-red-600">Contact & Support</h2>
           <p className="mb-2 text-gray-700">Have questions or need help? <a href="/contact" className="text-red-600 hover:underline">Contact us</a>.</p>
-          <p className="text-sm text-gray-700">Or email: <a href="mailto:support@lifedrop.com" className="underline">support@lifedrop.com</a></p>
         </div>
       </div>
 

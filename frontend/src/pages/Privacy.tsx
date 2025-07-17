@@ -30,6 +30,7 @@ export default function Privacy() {
           <li>You can update or delete your information at any time by contacting us.</li>
           <li>We do not share your personal data with third parties without your consent, except as required by law.</li>
           <li>All sensitive data is encrypted and stored securely.</li>
+          <li><a href="https://www.flaticon.com/free-stickers/blood-donation" title="blood donation stickers">Blood donation stickers created by vectorsmarket15 - Flaticon</a></li>
         </ul>
         <h2 className="mb-2 text-black">Contact Us</h2>
         <p className="text-gray-700">If you have any questions or concerns about your privacy, please contact our support team. We are here to help and ensure your information is safe with us.</p>

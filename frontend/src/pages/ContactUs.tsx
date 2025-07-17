@@ -42,7 +42,7 @@ export default function ContactUs() {
       <h1 className="text-4xl font-extrabold mb-2 text-red-700 text-center">Your Words Can Spark Hope</h1>
       <p className="mb-6 text-lg text-gray-700 max-w-2xl text-center">
         Every great movement begins with a single voice. Whether you need any help, have any issues, want to volunteer, share feedback, or simply say hello, we're eager to hear from you. 
-        <span className="font-semibold text-red-600">Together, we can build a future where no one waits for the gift of life.</span> 
+        <span className="font-semibold text-red-600"> Together, we can build a future where no one waits for the gift of life. </span> 
         Drop us a message—let's create a ripple of kindness that reaches every corner of our community.
       </p>
       <div className="w-full max-w-md bg-white p-6 rounded-xl shadow-lg">

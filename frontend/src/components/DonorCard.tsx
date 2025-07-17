@@ -17,7 +17,7 @@ type Donor = {
   languages?: string[];
   healthStatus?: string;
   donationCount?: number;
-  responseTime?: string;
+  Details?: string;
   socialConnections?: number;
 };
 
@@ -93,8 +93,8 @@ const DonorCard: React.FC<DonorCardProps> = ({ donor, viewMode}) => {
               </span>
             </div>
             <div className="flex justify-between">
-              <span className="text-gray-600">Response:</span>
-              <span className="font-semibold text-green-600">{donor.responseTime}</span>
+              <span className="text-gray-600">Details:</span>
+              <span className="font-semibold text-green-600">{donor.Details}</span>
             </div>
           </div>
           <div className="bg-green-50 rounded-lg p-3 mb-4">
@@ -146,7 +146,7 @@ const DonorCard: React.FC<DonorCardProps> = ({ donor, viewMode}) => {
           </div>
           <div className="text-right">
             <div className="text-3xl font-bold text-red-600 mb-1">{donor.bloodType}</div>
-            <div className="text-sm font-semibold text-green-600">{donor.responseTime}</div>
+            <div className="text-sm font-semibold text-green-600">{donor.Details}</div>
           </div>
         </div>
         <div className="mt-4 flex items-center justify-between">

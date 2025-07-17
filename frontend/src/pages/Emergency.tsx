@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { postToBackend } from "../store/fetchdata";
 import { baseUrl } from "../url";
 import { useNavigate } from "react-router";
 import Navbar from "../components/Navbar";
 import { motion } from "framer-motion";
+import { useAuth } from "../store/auth";
 
 
 const EmergencyRequest = () => {
@@ -17,6 +18,8 @@ const EmergencyRequest = () => {
     urgency: "high",
   });
   const navigate = useNavigate();
+  const { isLoggedIn } = useAuth();
+  const [showLoginModal, setShowLoginModal] = useState(false);
   
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -38,10 +41,27 @@ const EmergencyRequest = () => {
       alert("Error sending emergency request.");
     }
   };
+    useEffect(() => {
+      if (!isLoggedIn) {
+          setShowLoginModal(true);
+      }
+  }, [isLoggedIn]);
 
   return (
     <motion.div initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -40 }} transition={{ duration: 0.6 }} className="w-screen flex flex-col items-center" style={{ minHeight: '100vh' }}>
-      <Navbar />
+      {showLoginModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50">
+          <div className="bg-white rounded-xl shadow-lg p-8 max-w-sm w-full flex flex-col items-center">
+            <h2 className="text-xl font-bold mb-4 text-red-700 text-center">Please login to continue</h2>
+            <button
+              className="bg-red-600 text-white px-6 py-2 rounded-lg font-semibold hover:bg-red-700 transition"
+              onClick={() => navigate("/login")}
+            >
+              Login
+            </button>
+          </div>
+        </div>
+    )}
       {/* Motivational Quote */}
       <div className="w-full flex justify-center mb-8" style={{ paddingTop: '7.5rem' }}>
         <blockquote className="text-xl italic font-bold text-center text-black max-w-2xl">

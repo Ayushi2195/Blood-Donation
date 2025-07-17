@@ -1,6 +1,7 @@
-import React, { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { useAuth } from "../store/auth.tsx";
+import { Button } from "./ui/button.tsx";
+import { useAuth } from "../store/auth"; // adjust path as needed
 
 const mainLinks = [
   { name: "Home", path: "/" },
@@ -24,7 +25,7 @@ const infoLinks = [
       <svg className="inline w-4 h-4 mr-2 text-pink-500" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M12 17a5 5 0 0 0 5-5V7a5 5 0 0 0-10 0v5a5 5 0 0 0 5 5z"/></svg>
     ) },
   // Login link below Privacy
-  { name: "Login", path: "http://localhost:5173/login", icon: (
+  { name: "Login", path: "/login", icon: (
       <svg className="inline w-4 h-4 mr-2 text-gray-500" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M15 12H3m6-6l-6 6 6 6"/></svg>
     ) },
   // Divider
@@ -36,8 +37,8 @@ export default function Navbar() {
   const [showDropdown, setShowDropdown] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const { token } = useAuth();
-  const profileLink: string = token && typeof token === 'string' && token.trim() !== '' ? "/profile" : "/login";
   const [showLoginModal, setShowLoginModal] = useState(false);
+  const { isLoggedIn } = useAuth();
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
@@ -76,7 +77,7 @@ export default function Navbar() {
   return (
     <>
       <AlreadyLoggedInModal />
-      <nav className="bg-white/70 backdrop-blur-md shadow flex items-center justify-between px-8 py-4 fixed w-full z-50">
+      <nav className="top-0 bg-white/70 backdrop-blur-md shadow flex items-center justify-between px-8 py-4 fixed w-full z-50">
       <Link to="/" className="text-2xl font-extrabold text-red-600 tracking-tight">
         LifeDrop
       </Link>
@@ -110,7 +111,7 @@ export default function Navbar() {
           <span className="absolute -top-1 -right-1 w-2.5 h-2.5 bg-red-600 rounded-full border-2 border-white"></span>
         </Link>
         {/* Profile Avatar Icon */}
-        <Link to={token && typeof token === 'string' && token.trim() !== '' ? "http://localhost:5173/profile" : "http://localhost:5173/login"} className="ml-2">
+          <Link to={isLoggedIn ? "/profile" : "/login"} className="ml-2">
           <div className="w-8 h-8 rounded-full bg-white border border-neutral-800 flex items-center justify-center shadow">
             <svg
               className="w-6 h-6 text-black"
@@ -129,16 +130,16 @@ export default function Navbar() {
           onMouseEnter={() => setShowDropdown(true)}
           onMouseLeave={() => setShowDropdown(false)}
         >
-          <button
+          <Button
             className="font-medium text-white hover:text-red-200 transition focus:outline-none"
             tabIndex={0}
             aria-haspopup="true"
-            aria-expanded={showDropdown}
+            aria-expanded={showDropdown ? "true" : "false"}
             onClick={() => setShowDropdown((prev) => !prev)}
           >
             More
             <svg className="inline w-4 h-4 ml-1" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7" /></svg>
-          </button>
+          </Button>
           {showDropdown && (
             <div
               className="absolute right-0 w-48 bg-white border rounded shadow-lg z-10"
@@ -149,7 +150,7 @@ export default function Navbar() {
                 ) : link.name === "About Us" ? (
                   <div key={link.name} className="group relative">
                     <Link
-                      to={link.path}
+                      to={link.path ?? "/"}
                       className="flex items-center px-4 py-2 text-gray-700 hover:bg-red-50 hover:text-red-600"
                     >
                       {link.icon}
@@ -169,7 +170,7 @@ export default function Navbar() {
                 ) : (
                   <Link
                     key={link.name}
-                    to={link.path}
+                    to={link.path ?? "/"}
                     className="flex items-center px-4 py-2 text-gray-700 hover:bg-red-50 hover:text-red-600"
                   >
                     {link.icon}
