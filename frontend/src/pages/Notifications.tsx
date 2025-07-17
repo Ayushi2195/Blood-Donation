@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { getFromBackend, patchToBackend } from "../store/fetchdata";
 import { baseUrl } from "../url";
-import Navbar from "../components/Navbar";
 import { motion } from "framer-motion";
 
 type Notification = {
@@ -108,12 +107,12 @@ const Notifications = () => {
   };
 
   return (
-    <motion.div initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -40 }} transition={{ duration: 0.6 }} className="w-screen mt-16">
+    <motion.div initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -40 }} transition={{ duration: 0.6 }} className="w-screen">
       {/* Heading section with w-screen and styled background */}
-      <div className="w-screen flex flex-col items-center justify-center pt-8 pb-4">
-        <h2 className="text-4xl font-extrabold tracking-widest text-red-600 uppercase drop-shadow-lg mb-4" style={{ letterSpacing: '0.15em' }}>
+      <div className="top-0 w-screen flex flex-col items-center justify-center pt-2 pb-4">
+        <div className="pt-4 text-4xl font-extrabold tracking-widest text-red-600 uppercase drop-shadow-lg mb-4 notifications-heading">
           Notifications
-        </h2>
+        </div>
       </div>
       <div className="max-w-3xl mx-auto p-4 space-y-4" style={{ paddingTop: '1.5rem' }}>
         {notifications.length === 0 ? (
