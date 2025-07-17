@@ -17,9 +17,6 @@ const infoLinks = [
       { name: "Our Team", path: "/about#team" },
       { name: "Our Mission", path: "/about#mission" },
     ] },
-  { name: "Testimonials", path: "/testimonials", icon: (
-      <svg className="inline w-4 h-4 mr-2 text-green-500" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M7 17a4 4 0 0 1-4-4V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4v6a4 4 0 0 1-4 4H7zm0 0v4m10-4v4"/></svg>
-    ) },
   { name: "Terms", path: "/terms", icon: (
       <svg className="inline w-4 h-4 mr-2 text-yellow-500" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M17 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h10zm0 0v4H7V3"/></svg>
     ) },
@@ -40,6 +37,7 @@ export default function Navbar() {
   const dropdownRef = useRef<HTMLDivElement>(null);
   const { token } = useAuth();
   const profileLink: string = token && typeof token === 'string' && token.trim() !== '' ? "/profile" : "/login";
+  const [showLoginModal, setShowLoginModal] = useState(false);
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
@@ -57,8 +55,28 @@ export default function Navbar() {
     };
   }, [showDropdown]);
 
+  // Modal for already logged in
+  const AlreadyLoggedInModal = () => (
+    showLoginModal ? (
+      <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-40">
+        <div className="bg-white rounded-xl shadow-lg p-8 max-w-xs w-full flex flex-col items-center">
+          <span className="text-green-600 text-2xl mb-2">✔</span>
+          <p className="text-lg font-semibold text-gray-800 mb-4 text-center">You are already logged in.</p>
+          <button
+            className="bg-red-600 text-white px-6 py-2 rounded-lg font-semibold hover:bg-red-700 transition"
+            onClick={() => setShowLoginModal(false)}
+          >
+            Close
+          </button>
+        </div>
+      </div>
+    ) : null
+  );
+
   return (
-    <nav className="bg-white/70 backdrop-blur-md shadow flex items-center justify-between px-8 py-4 fixed w-full z-50">
+    <>
+      <AlreadyLoggedInModal />
+      <nav className="bg-white/70 backdrop-blur-md shadow flex items-center justify-between px-8 py-4 fixed w-full z-50">
       <Link to="/" className="text-2xl font-extrabold text-red-600 tracking-tight">
         LifeDrop
       </Link>
@@ -139,6 +157,15 @@ export default function Navbar() {
                     </Link>
                     <span className="block text-xs text-gray-500 px-4 pb-1">{link.description}</span>
                   </div>
+                ) : link.name === "Login" && token && typeof token === 'string' && token.trim() !== '' ? (
+                  <button
+                    key={link.name}
+                    className="flex items-center w-full px-4 py-2 bg-white text-gray-700 hover:bg-red-50 hover:text-red-600 text-left"
+                    onClick={() => setShowLoginModal(true)}
+                  >
+                    {link.icon}
+                    <span>{link.name}</span>
+                  </button>
                 ) : (
                   <Link
                     key={link.name}
@@ -155,5 +182,6 @@ export default function Navbar() {
         </div>
       </div>
     </nav>
+    </>
   );
 }

@@ -10,7 +10,7 @@ interface Donor {
   name: string;
   location: string;
   bloodType: string;
-  contact: string;
+  age: number;
   languages: string[];
   donationCount: number;
   lastDonation: string;
@@ -66,11 +66,11 @@ export default function FindDonor() {
           name: d.name,
           location: d.city ?? "Unknown",
           bloodType: d.bloodGroup,
-          contact: d.phone,
+          age: d.age ?? '',
           languages: d.languages ?? [],
           donationCount: d.donationCount ?? 0,
-          lastDonation: d.lastDonation ?? "N/A",
-          responseTime: d.responseTime ?? "N/A",
+          lastDonation: d.lastDonation ?? 'N/A',
+          responseTime: d.responseTime ?? 'N/A',
           availability: d.isDonorAvailable ? "Available" : "Unavailable",
           specialQualities: d.preferences ?? [], 
           verified: true,       // placeholder
@@ -196,8 +196,13 @@ export default function FindDonor() {
 
           {filteredDonors.length === 0 ? (
             <div className="bg-yellow-50 border border-yellow-200 rounded-xl p-6 text-center">
-              <p className="font-semibold text-yellow-800 mb-2">No donors found for your search.</p>
-              <p className="text-gray-700">Try changing filters or location.</p>
+              <p className="font-semibold text-yellow-800 mb-2">No donors found in this location. Would you like to submit an emergency request?</p>
+              <button
+                className="mt-4 px-6 py-2 bg-red-600 text-white rounded-lg font-semibold hover:bg-red-700 transition"
+                onClick={() => window.location.href = 'http://localhost:5173/emergency'}
+              >
+                Yes
+              </button>
             </div>
           ) : viewMode === "grid" ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

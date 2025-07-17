@@ -10,7 +10,6 @@ import Notifications from "./pages/Notifications";
 import Profile from "./pages/Profile";
 import AboutUs from "./pages/AboutUs";
 import ContactUs from "./pages/ContactUs";
-import Testimonials from "./pages/Testimonials";
 import AdminDashboard from "./pages/AdminDashboard";
 import HowItWorks from "./pages/HowItWorks";
 import Terms from "./pages/Terms";
@@ -42,7 +41,6 @@ function App() {
           <Route path="/profile" element={<Profile />} />
           <Route path="/about" element={<AboutUs />} />
           <Route path="/contact" element={<ContactUs />} />
-          <Route path="/testimonials" element={<Testimonials />} />
           <Route path="/admin" element={<AdminDashboard />} />
           <Route path="/how-it-works" element={<HowItWorks />} />
           <Route path="/terms" element={<Terms />} />

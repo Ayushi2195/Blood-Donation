@@ -81,17 +81,14 @@ export default function FAQ() {
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -40 }}
       transition={{ duration: 0.6 }}
-      className="flex flex-col items-center justify-center min-h-screen pt-32 px-4 w-screen"
+      className="flex flex-col items-center justify-center min-h-screen pt-32 px-4 w-screen bg-gradient-to-br from-rose-150 to-rose-200"
     >
-      <h1 className="w-full text-3xl font-bold mb-8 text-center md:ml-8">FAQ's</h1>
-      <div className="max-w-6xl w-full grid grid-cols-1 md:grid-cols-2 gap-10 px-4 mx-auto md:ml-8">
+      <h1 className="w-full text-4xl font-extrabold mb-12 text-center text-red-600 tracking-widest drop-shadow-lg uppercase">FAQ's</h1>
+      <div className="max-w-4xl w-full grid grid-cols-1 md:grid-cols-2 gap-8 px-2 mx-auto">
         {faqs.map((faq, i) => (
-          <div
-            key={i}
-            className="bg-white rounded-xl shadow p-8 w-screen md:w-full"
-          >
-            <h2 className="text-2xl font-bold mb-4 text-red-600">{faq.question}</h2>
-            <p className="text-sm text-gray-700 leading-relaxed">{faq.answer}</p>
+          <div key={i} className="w-full bg-white rounded-xl shadow p-6 border-2 border-transparent">
+            <h2 className="text-lg font-bold text-red-700 mb-2">{faq.question}</h2>
+            <p className="text-gray-700 text-sm leading-relaxed">{faq.answer}</p>
           </div>
         ))}
       </div>

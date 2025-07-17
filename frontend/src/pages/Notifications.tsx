@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { getFromBackend, patchToBackend } from "../store/fetchdata";
 import { baseUrl } from "../url";
+import Navbar from "../components/Navbar";
+import { motion } from "framer-motion";
 
 type Notification = {
   _id: string;
@@ -58,7 +60,7 @@ const Notifications = () => {
             <div className="space-y-2 mt-2">
               <textarea
                 placeholder="Optional message to patient..."
-                className="w-full p-2 border rounded"
+                className="w-full p-2 border rounded bg-white"
                 value={messageMap[_id] || ""}
                 onChange={(e) => setMessageMap({ ...messageMap, [_id]: e.target.value })}
               />
@@ -106,16 +108,23 @@ const Notifications = () => {
   };
 
   return (
-    <div className="max-w-3xl mx-auto p-4 space-y-4">
-      <h2 className="text-2xl font-bold mb-4">🔔 Notifications</h2>
-      {notifications.length === 0 ? (
-        <div className="text-gray-600 text-center">No notifications yet.</div>
-      ) : (
-        notifications.map((notif) => (
-          <div key={notif._id}>{renderNotification(notif)}</div>
-        ))
-      )}
-    </div>
+    <motion.div initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -40 }} transition={{ duration: 0.6 }} className="w-screen mt-16">
+      {/* Heading section with w-screen and styled background */}
+      <div className="w-screen flex flex-col items-center justify-center pt-8 pb-4">
+        <h2 className="text-4xl font-extrabold tracking-widest text-red-600 uppercase drop-shadow-lg mb-4" style={{ letterSpacing: '0.15em' }}>
+          Notifications
+        </h2>
+      </div>
+      <div className="max-w-3xl mx-auto p-4 space-y-4" style={{ paddingTop: '1.5rem' }}>
+        {notifications.length === 0 ? (
+          <div className="text-gray-600 text-center">No notifications yet.</div>
+        ) : (
+          notifications.map((notif) => (
+            <div key={notif._id}>{renderNotification(notif)}</div>
+          ))
+        )}
+      </div>
+    </motion.div>
   );
 };
 

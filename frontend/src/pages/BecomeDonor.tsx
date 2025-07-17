@@ -111,41 +111,51 @@ export default function BecomeDonor() {
         </div>
       </div>
 
-      <h1 className="text-4xl font-bold mb-6 text-red-600">Manage Donor Status</h1>
-      <form onSubmit={handleSubmit} className="bg-white rounded-xl shadow p-8 w-full max-w-md space-y-4">
-        <div className="flex items-center space-x-4">
-          <label className="font-medium text-black">Available as Donor:</label>
-          <input
-            type="checkbox"
-            checked={isDonorAvailable}
-            onChange={(e) => setIsDonorAvailable(e.target.checked)}
-            className="w-5 h-5"
-          />
+      <div className="w-full max-w-md mb-8">
+        <div className="bg-white rounded-2xl shadow-lg p-8 flex flex-col gap-6">
+          <h2 className="text-2xl font-extrabold text-red-600 mb-2 text-center">Manage Donor Status</h2>
+          <form onSubmit={handleSubmit} className="flex flex-col gap-6">
+            <div className="flex flex-col gap-2">
+              <label className="font-semibold text-gray-800 flex items-center justify-between text-lg">
+                Available as Donor:
+                <input
+                  type="checkbox"
+                  checked={isDonorAvailable}
+                  onChange={(e) => setIsDonorAvailable(e.target.checked)}
+                  className="w-6 h-6 accent-red-600 ml-2"
+                />
+              </label>
+            </div>
+            {isDonorAvailable && (
+              <div className="flex flex-col gap-1">
+                <label className="font-semibold text-gray-800 text-lg">Available Until:</label>
+                <div className="flex items-center gap-3">
+                  <input
+                    type="date"
+                    value={availableUntil}
+                    onChange={(e) => setAvailableUntil(e.target.value)}
+                    className="p-2 border rounded bg-white text-gray-900 font-semibold shadow-sm"
+                    required
+                  />
+                  {availableUntil && (
+                    <span className="bg-red-100 text-red-700 px-3 py-1 rounded-lg font-bold text-base border border-red-200">
+                      {availableUntil.split('-').reverse().join('-')}
+                    </span>
+                  )}
+                </div>
+              </div>
+            )}
+            <button
+              type="submit"
+              className="bg-red-600 text-white px-6 py-3 rounded-xl font-bold text-lg hover:bg-red-700 transition mt-2"
+              disabled={loading}
+            >
+              {loading ? "Updating..." : "Update Status"}
+            </button>
+            {message && <p className="text-center text-green-600 font-semibold">{message}</p>}
+          </form>
         </div>
-
-        {isDonorAvailable && (
-          <div>
-            <label className="block text-gray-700 mb-1">Available Until:</label>
-            <input
-              type="date"
-              value={availableUntil}
-              onChange={(e) => setAvailableUntil(e.target.value)}
-              className="w-full p-2 border rounded"
-              required
-            />
-          </div>
-        )}
-
-        <button
-          type="submit"
-          className="bg-red-600 text-white px-4 py-2 rounded w-full hover:bg-red-700 transition"
-          disabled={loading}
-        >
-          {loading ? "Updating..." : "Update Status"}
-        </button>
-
-        {message && <p className="text-center text-green-600">{message}</p>}
-      </form>
+      </div>
 
       <div className="mt-8 text-gray-600 text-sm">
         <p>Current Role: <span className="font-semibold">{currentRole}</span></p>
