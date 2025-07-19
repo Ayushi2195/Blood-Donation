@@ -25,7 +25,7 @@ export default function Login() {
             const { accessToken } = response.data;
             storeTokenInLS(accessToken);
             console.log(`Login successful for email: ${email}`);
-            navigate("/"); // Navigate to home/dashboard after login
+            navigate("/"); 
         } catch (err: any) {
             setError(err.response?.data?.error || "Login failed. Please check your credentials.");
         }
@@ -91,8 +91,7 @@ export default function Login() {
                     </div>
                 </form>
                 <div className="mt-8 flex flex-col items-center gap-3 w-full">
-                        <Link to="#" className="text-rose-500 font-semibold hover:underline transition">Forgot your password?</Link>
-                    <div className="text-gray-500 text-base">
+                        <div className="text-gray-500 text-base">
                         First time here?{" "}
                             <Link to="/signup" className="text-rose-700 font-bold hover:underline transition">Create an account</Link>
                         </div>
